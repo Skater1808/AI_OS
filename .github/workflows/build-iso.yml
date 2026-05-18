@@ -1,66 +1,52 @@
-name: Build AiOS ISO
+name: Build AiOS Distribution
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-os:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    # 1. Repository-Code auschecken
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
 
-      - name: Install Native Build Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            debootstrap \
-            squashfs-tools \
-            xorriso \
-            grub-pc-bin \
-            grub-efi-amd64-bin \
-            mtools \
-            bubblewrap \
-            curl
+    # 2. Verzeichnisstruktur vorbereiten
+    # Falls dein Repo die Ordner "core-daemon", "ai-engine" etc. direkt im Root hat,
+    # verschieben wir sie hier nach /build, damit das Shell-Skript die Pfade findet.
+    - name: Prepare Build Workspace
+      run: |
+        sudo mkdir -p /build
+        sudo chown -R runner:docker /build
+        cp -r * /build/
 
-      - name: Install Rust Toolchain
-        uses: dtolnay/rust-toolchain@stable
+    # 3. Offizielle Rust-Toolchain installieren
+    - name: Install Rust Toolchain
+      uses: dtolnay/rust-toolchain@stable
 
-      - name: Download and Bootstrap Modular Magic CLI
-        run: |
-          # Direktes Beziehen des kompilierten Linux-x86_64 Binaries von Modulars CDN
-          mkdir -p $HOME/.modular/bin
-          curl -sSL "https://dl.modular.com/public/magic/raw/names/magic-linux-amd64/versions/latest/magic" -o $HOME/.modular/bin/magic
-          chmod +x $HOME/.modular/bin/magic
-          
-          # Binary im globalen GitHub-Runner-Pfad registrieren
-          echo "$HOME/.modular/bin" >> $GITHUB_PATH
+    # 4. Rust System Daemon auf dem Host kompilieren (behebt Exit Code 127)
+    - name: Build Rust Daemon on Host
+      run: |
+        cd /build/core-daemon
+        cargo build --release
 
-      - name: Prepare Workspace and Bypass Large Model Download
-        run: |
-          sudo mkdir -p /build
-          sudo cp -r ./* /build/
-          
-          # Erstellt ein ressourcenschonendes Dummy-Modell für den CI-Durchlauf
-          sudo mkdir -p /build/rootfs/opt/aios/models/
-          echo "DUMMY_LLM_WEIGHTS_FOR_CI_BUILD" | sudo tee /build/rootfs/opt/aios/models/qwen2.5-7b-instruct-q4_k_m.gguf > /dev/null
-          
-          # Deaktiviert den großen Download im Hauptskript
-          sudo sed -i 's|/bin/bash /build/scripts/download_model.sh|# Bypass download|g' /build/build.sh
+    # 5. OS-Build-Skript mit Root-Rechten ausführen (behebt Python-Deadlock)
+    - name: Run OS Build Script (Debootstrap & ISO Generation)
+      run: |
+        cd /build
+        sudo chmod +x build.sh
+        sudo ./build.sh
 
-      - name: Execute AiOS Native Build Pipeline
-        run: |
-          cd /build
-          sudo chmod +x build.sh
-          sudo ./build.sh
-          cp /build/aios.iso ${{ github.workspace }}/aios.iso
-
-      - name: Upload ISO Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: aios-iso-image
-          path: aios.iso
-          if-no-files-found: error
+    # 6. Das fertige ISO-Bootmedium als GitHub-Artefakt bereitstellen
+    - name: Upload AiOS ISO Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: aios-distribution-iso
+        path: /build/aios.iso
+        if-no-files-found: error
+        retention-days: 5

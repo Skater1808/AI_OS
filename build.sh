@@ -6,33 +6,17 @@ set -e
 # =====================================================================
 export ROOTFS=/build/rootfs
 export DEBIAN_FRONTEND=noninteractive
-export PATH="$HOME/.cargo/bin:$PATH" # Stellt sicher, dass Cargo im Host-Pfad liegt
 
 mkdir -p "$ROOTFS"
 
 # =====================================================================
-# 2. RUST SYSTEM DAEMON ENGINE (HOST COMPILATION)
-# =====================================================================
-# Wir bauen den Daemon ZUERST auf dem Host, da hier die Toolchain 
-# aus der GitHub Action ('dtolnay/rust-toolchain') bereitliegt.
-echo "Compiling Rust System Daemon Engine on Host..."
-cd /build/core-daemon
-
-if command -v cargo &> /dev/null; then
-    cargo build --release
-else
-    echo "WARNUNG: Cargo nicht im PATH, versuche Standard-Installationspfad..."
-    $HOME/.cargo/bin/cargo build --release
-fi
-
-# =====================================================================
-# 3. BASE TARGET SYSTEM (DEBOOTSTRAP)
+# 2. BASE TARGET SYSTEM (DEBOOTSTRAP)
 # =====================================================================
 echo "Executing Debootstrap for Minimal Base Target System..."
 debootstrap --variant=minbase noble "$ROOTFS" http://archive.ubuntu.com/ubuntu/
 
 # =====================================================================
-# 4. VIRTUAL FILESYSTEMS MOUNTEN
+# 3. VIRTUAL FILESYSTEMS MOUNTEN
 # =====================================================================
 echo "Mounting Virtual Filesystems into Target Environment..."
 mount -t proc proc "$ROOTFS/proc"
@@ -51,7 +35,7 @@ cleanup() {
 trap cleanup EXIT
 
 # =====================================================================
-# 5. KERNEL & DEPENDENCIES INJEKTION (CHROOT)
+# 4. KERNEL & DEPENDENCIES INJEKTION (CHROOT)
 # =====================================================================
 echo "Configuring Core Dependencies inside Target Environment..."
 chroot "$ROOTFS" apt-get update
@@ -66,17 +50,22 @@ chroot "$ROOTFS" apt-get install -y --no-install-recommends \
     linux-modules-6.8.0-31-generic
 
 # =====================================================================
-# 6. ARTIFAKTE & KONFIGURATIONEN PLATZIEREN
+# 5. ARTIFAKTE & KONFIGURATIONEN PLATZIEREN
 # =====================================================================
-echo "Deploying Compiled Binaries and AI Frameworks..."
+echo "Deploying Pre-Compiled Binaries and AI Frameworks..."
 mkdir -p "$ROOTFS/usr/bin"
 mkdir -p "$ROOTFS/etc/systemd/system"
 mkdir -p "$ROOTFS/run/aios"
 mkdir -p "$ROOTFS/opt/aios/ai-engine"
 mkdir -p "$ROOTFS/opt/aios/models"
 
-# Kopieren der auf dem Host gebauten Rust-Engine ins Rootfs
-cp /build/core-daemon/target/release/aios-core-daemon "$ROOTFS/usr/bin/"
+# Kopieren der im vorherigen Workflow-Schritt gebauten Rust-Engine ins Rootfs
+if [ -f /build/core-daemon/target/release/aios-core-daemon ]; then
+    cp /build/core-daemon/target/release/aios-core-daemon "$ROOTFS/usr/bin/"
+else
+    echo "CRITICAL ERROR: Pre-compiled aios-core-daemon nicht gefunden!"
+    exit 1
+fi
 
 # Mojo Skripte & Systemd-Konfigurationen kopieren
 if [ -f /build/ai-engine/engine.mojo ]; then
@@ -96,7 +85,7 @@ if [ -f /build/scripts/download_model.sh ]; then
 fi
 
 # =====================================================================
-# 7. ISO DISTRIBUTION ASSEMBLY
+# 6. ISO DISTRIBUTION ASSEMBLY
 # =====================================================================
 echo "Assembling ISO Distribution Framework..."
 mkdir -p /build/iso/boot/grub
