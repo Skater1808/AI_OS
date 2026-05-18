@@ -1,0 +1,27 @@
+name: Build AiOS ISO
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build ISO via Docker
+        run: |
+          docker build -t aios-builder .
+          # Startet den Container privilegiert und kopiert die ISO heraus
+          docker run --privileged -v ${{ github.workspace }}:/dist aios-builder cp /build/aios.iso /dist/
+
+      - name: Upload ISO Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aios-iso-image
+          path: aios.iso

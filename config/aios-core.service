@@ -1,0 +1,21 @@
+[Unit]
+Description=AiOS Core Zero-Trust Microkernel Daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/aios-core-daemon
+Restart=always
+User=root
+RuntimeDirectory=aios
+RuntimeDirectoryMode=0755
+
+ProtectSystem=strict
+ProtectHome=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+MemoryDenyWriteExecute=true
+CapabilityBoundingSet=CAP_SYS_CHROOT CAP_SETUID CAP_SETGID
