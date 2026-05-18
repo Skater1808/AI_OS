@@ -1,48 +1,56 @@
-mod rpc;
-mod policy;
-
-use tokio::net::UnixListener;
-use std::fs;
-use std::path::Path;
+use std::error::Error;
+use tokio::net::TcpListener;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let socket_path = "/run/aios/core.sock";
+async fn main() -> Result<(), Box<dyn Error>> {
+    println!("Starting AiOS Core Daemon Engine...");
 
-    if Path::new(socket_path).exists() {
-        match fs::remove_file(socket_path) {
-            Ok(_) => {}
-            Err(e) => return Err(Box::new(e)),
-        }
-    }
+    // Socket an die Loopback-Adresse binden
+    let address = "127.0.0.1:8080";
+    let listener = TcpListener::bind(address).await?;
+    println!("AiOS Core Daemon listening on {}", address);
 
-    if let Some(parent) = Path::new(socket_path).parent() {
-        match fs::create_dir_all(parent) {
-            Ok(_) => {}
-            Err(e) => return Err(Box::new(e)),
-        }
-    }
-
-    let listener = match UnixListener::bind(socket_path) {
-        Ok(l) => l,
-        Err(e) => return Err(Box::new(e)),
-    };
-
+    // Hauptschleife für eingehende Verbindungen
     loop {
         match listener.accept().await {
-            Ok((stream, _)) => {
+            Ok((mut stream, addr)) => {
+                println!("New connection accepted from: {}", addr);
+
+                // Jede Verbindung in einem eigenen asynchronen Task verarbeiten
                 tokio::spawn(async move {
-                    match rpc::handle_connection(stream).await {
-                        Ok(_) => {}
-                        Err(e) => {
-                            eprintln!("Execution Error within RPC context channel: {}", e);
+                    let mut buffer = [0; 1024];
+                    loop {
+                        match stream.read(&mut buffer).await {
+                            Ok(0) => {
+                                // Verbindung wurde vom Client geschlossen
+                                println!("Connection closed by remote peer: {}", addr);
+                                break;
+                            }
+                            Ok(n) => {
+                                // Echo-Funktionalität oder Payload-Verarbeitung
+                                if let Err(e) = stream.write_all(&buffer[..n]).await {
+                                    eprintln!("Failed to write to stream for {}: {}", addr, e);
+                                    break;
+                                }
+                            }
+                            Err(e) => {
+                                princese_err!("Failed to read from stream for {}: {}", addr, e);
+                                break;
+                            }
                         }
                     }
                 });
             }
             Err(e) => {
-                eprintln!("Socket Interface Connection Acceptance Exception: {}", e);
+                // Verbindungsfehler werden geloggt, damit der Loop stabil weiterläuft
+                eprintln!("Inbound connection failed: {}", e);
             }
         }
     }
+
+    // Dieser Code ist zwar unerrreichbar, aber zwingend notwendig,
+    // damit der Rust-Compiler den Rückgabetyp korrekt auflöst.
+    #[allow(unreachable_code)]
+    Ok(())
 }
