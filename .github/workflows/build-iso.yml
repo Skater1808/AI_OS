@@ -7,30 +7,45 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      # Behebt die Node.js Deprecation-Warnung für den Runner
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Docker Toolchain Image
+      - name: Install Native Build Dependencies
         run: |
-          docker build -t aios-builder .
+          sudo apt-get update
+          sudo apt-get install -y \
+            debootstrap \
+            squashfs-tools \
+            xorriso \
+            grub-pc-bin \
+            grub-efi-amd64-bin \
+            mtools \
+            bubblewrap
 
-      - name: Execute Build Pipeline with Extended Privileges
-        # Wir starten den Container mit vollem Zugriff auf das Host-System,
-        # damit debootstrap und bubblewrap Dateisysteme mounten dürfen.
+      - name: Install Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Modular CLI & Mojo
         run: |
-          docker run --privileged \
-            --net=host \
-            -v /dev:/dev \
-            -v ${{ github.workspace }}:/dist \
-            aios-builder \
-            /bin/bash -c "cp -r . /build-exec && cd /build-exec && chmod +x build.sh && ./build.sh && cp /build-exec/aios.iso /dist/aios.iso"
+          curl -ssL https://magic.modular.com | sh
+          # Wir fügen den Pfad temporär hinzu, falls Cargo/Magic ihn im Runner sucht
+          echo "$HOME/.modular/bin" >> $GITHUB_PATH
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Execute AiOS Native Build Pipeline
+        run: |
+          # Wir simulieren die Pfade, die build.sh erwartet
+          sudo mkdir -p /build
+          sudo cp -r ./* /build/
+          cd /build
+          
+          # Skript ausführbar machen und mit echten Root-Rechten starten
+          sudo chmod +x build.sh
+          sudo ./build.sh
+          
+          # Die fertige ISO zurück in den GitHub-Workspace kopieren
+          cp /build/aios.iso ${{ github.workspace }}/aios.iso
 
       - name: Upload ISO Artifact
         uses: actions/upload-artifact@v4
