@@ -23,39 +23,35 @@ jobs:
             grub-pc-bin \
             grub-efi-amd64-bin \
             mtools \
-            bubblewrap
+            bubblewrap \
+            curl
 
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      # Wir nutzen Conda/Mamba, um den Modular-Paketmanager ohne curl direkt zu installieren
-      - name: Setup Conda Environment for Magic
-        uses: conda-incubator/setup-miniconda@v3
-        with:
-          auto-update-conda: true
-          python-version: "3.11"
-
-      - name: Install Magic Compiler via Conda Channel
-        shell: bash -l {0}
+      - name: Download and Bootstrap Modular Magic CLI
         run: |
-          conda install -c conda-forge -y mojosuites magic
-          # Pfad exportieren
-          echo "$(which magic)" >> $GITHUB_PATH
+          # Direktes Beziehen des kompilierten Linux-x86_64 Binaries von Modulars CDN
+          mkdir -p $HOME/.modular/bin
+          curl -sSL "https://dl.modular.com/public/magic/raw/names/magic-linux-amd64/versions/latest/magic" -o $HOME/.modular/bin/magic
+          chmod +x $HOME/.modular/bin/magic
+          
+          # Binary im globalen GitHub-Runner-Pfad registrieren
+          echo "$HOME/.modular/bin" >> $GITHUB_PATH
 
       - name: Prepare Workspace and Bypass Large Model Download
         run: |
           sudo mkdir -p /build
           sudo cp -r ./* /build/
           
-          # Erstellt das Dummy-Modell für einen reibungslosen CI-Durchlauf
+          # Erstellt ein ressourcenschonendes Dummy-Modell für den CI-Durchlauf
           sudo mkdir -p /build/rootfs/opt/aios/models/
           echo "DUMMY_LLM_WEIGHTS_FOR_CI_BUILD" | sudo tee /build/rootfs/opt/aios/models/qwen2.5-7b-instruct-q4_k_m.gguf > /dev/null
           
-          # Deaktiviert den großen Download im Skript
+          # Deaktiviert den großen Download im Hauptskript
           sudo sed -i 's|/bin/bash /build/scripts/download_model.sh|# Bypass download|g' /build/build.sh
 
       - name: Execute AiOS Native Build Pipeline
-        shell: bash -l {0}
         run: |
           cd /build
           sudo chmod +x build.sh
