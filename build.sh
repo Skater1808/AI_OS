@@ -8,18 +8,26 @@ echo "Executing Debootstrap for Minimal Base Target System..."
 debootstrap --variant=minbase noble "$ROOTFS" http://archive.ubuntu.com/ubuntu/
 
 echo "Mounting Virtual Filesystems into Target Environment..."
-# Diese Mounts sind absolut überlebenswichtig, damit apt-get Pakete wie Python und den Kernel konfigurieren kann!
 mount -t proc proc "$ROOTFS/proc"
 mount -t sysfs sys "$ROOTFS/sys"
 mount --bind /dev "$ROOTFS/dev"
 mount -t devpts devpts "$ROOTFS/dev/pts"
 
-# Ein kleiner Trick, um dpkg-Fehler bezüglich fehlender Terminals/Schnittstellen abzufangen
 export DEBIAN_FRONTEND=noninteractive
 
 echo "Configuring Core Dependencies inside Target Environment..."
 chroot "$ROOTFS" apt-get update
-chroot "$ROOTFS" apt-get install -y --no-install-recommends systemd-sysv bubblewrap libgomp1 linux-image-virtual grub-pc-bin
+
+# CI-RETTUNG: Wir installieren die Core-Komponenten und NUR den nackten Kernel-Binary-Abzug.
+# Indem wir "linux-image-6.8.0-*-generic" direkt wählen statt des Metapakets, 
+# verhindern wir das Triggern der Python-Skripte und sparen massiv Pipeline-Zeit.
+chroot "$ROOTFS" apt-get install -y --no-install-recommends \
+    systemd-sysv \
+    bubblewrap \
+    libgomp1 \
+    grub-pc-bin \
+    linux-image-6.8.0-31-generic \
+    linux-modules-6.8.0-31-generic
 
 echo "Compiling Rust System Daemon Engine..."
 cd /build/core-daemon
@@ -41,11 +49,10 @@ chroot "$ROOTFS" systemctl enable aios-core.service
 
 echo "Triggering Offline LLM Model Provisioning Pipeline..."
 if [ -f /build/scripts/download_model.sh ]; then
-    /bin/bash /build/scripts/download_model.sh "$ROOTFS/opt/aios/models/" || echo "Model pipeline skipped or warning handled."
+    /bin/bash /build/scripts/download_model.sh "$ROOTFS/opt/aios/models/" || echo "Modell-Download übersprungen oder simuliert."
 fi
 
 echo "Unmounting Virtual Filesystems before Squashing..."
-# Extrem wichtig, da mksquashfs sonst die Live-Inhalte deines Host-Systems mit in die ISO packt!
 umount -lf "$ROOTFS/proc" || true
 umount -lf "$ROOTFS/sys" || true
 umount -lf "$ROOTFS/dev/pts" || true
@@ -59,12 +66,11 @@ cp /build/config/grub.cfg /build/iso/boot/grub/
 
 mksquashfs "$ROOTFS" /build/iso/casper/filesystem.squashfs -comp xz -e boot
 
-# Da wir linux-image-virtual nutzen, müssen wir den genauen Namen dynamisch auslesen
 KERNEL_IMG=$(ls -1 $ROOTFS/boot/vmlinuz-* | head -n 1)
 INITRD_IMG=$(ls -1 $ROOTFS/boot/initrd.img-* | head -n 1)
 
 if [ -z "$KERNEL_IMG" ] || [ -z "$INITRD_IMG" ]; then
-    echo "CRITICAL ERROR: Kernel image or initrd not found in rootfs/boot!"
+    echo "CRITICAL ERROR: Kernelvmlinuz oder Initrd fehlt im rootfs!"
     exit 1
 fi
 
