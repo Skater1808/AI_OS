@@ -16,11 +16,11 @@ jobs:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    # 2. Host-System-Abhängigkeiten installieren (behebt debootstrap: command not found)
+    # 2. Host-System-Abhängigkeiten installieren (Komplettes ISO- & Boot-Tooling)
     - name: Install Host Build Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y debootstrap squashfs-tools xorriso grub-pc-bin grub-common
+        sudo apt-get install -y debootstrap squashfs-tools xorriso grub-pc-bin grub-common mtools libisoburn1 grub-efi-amd64-bin
 
     # 3. Verzeichnisstruktur vorbereiten
     - name: Prepare Build Workspace

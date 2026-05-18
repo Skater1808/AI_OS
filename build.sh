@@ -91,20 +91,43 @@ echo "Assembling ISO Distribution Framework..."
 mkdir -p /build/iso/boot/grub
 mkdir -p /build/iso/casper
 
-# Grub Config kopieren
+# Grub Config kopieren oder Fallback erstellen, falls Datei im Repo fehlt
 if [ -f /build/config/grub.cfg ]; then
     cp /build/config/grub.cfg /build/iso/boot/grub/
+else
+    echo "WARNUNG: /build/config/grub.cfg nicht gefunden. Erstelle Standard-Konfiguration..."
+    cat << 'EOF' > /build/iso/boot/grub/grub.cfg
+set default=0
+set timeout=5
+
+menuentry "AiOS Linux (GNU/Linux)" {
+    linux /boot/vmlinuz boot=casper quiet splash ---
+    initrd /boot/initrd
+}
+EOF
 fi
 
-# Kernel-Images lokalisieren, bevor wir das Rootfs packen
-KERNEL_IMG=$(ls -1 $ROOTFS/boot/vmlinuz-* 2>/dev/null | head -n 1)
-INITRD_IMG=$(ls -1 $ROOTFS/boot/initrd.img-* 2>/dev/null | head -n 1)
+# Lokalisierung der Kernel-Dateien mit direktem Fallback-Check
+KERNEL_IMG=""
+INITRD_IMG=""
+
+if [ -f "$ROOTFS/boot/vmlinuz-6.8.0-31-generic" ]; then
+    KERNEL_IMG="$ROOTFS/boot/vmlinuz-6.8.0-31-generic"
+    INITRD_IMG="$ROOTFS/boot/initrd.img-6.8.0-31-generic"
+else
+    # Letzter Versuch: Nimm was da ist
+    KERNEL_IMG=$(ls -1 $ROOTFS/boot/vmlinuz-* 2>/dev/null | head -n 1)
+    INITRD_IMG=$(ls -1 $ROOTFS/boot/initrd.img-* 2>/dev/null | head -n 1)
+fi
 
 # Das Filesystem in das komprimierte SquashFS packen
+echo "Creating SquashFS file system..."
 mksquashfs "$ROOTFS" /build/iso/casper/filesystem.squashfs -comp xz -e boot
 
 # Bereite die Boot-Dateien für die ISO vor
-if [ -n "$KERNEL_IMG" ] && [ -n "$INITRD_IMG" ]; then
+if [ -n "$KERNEL_IMG" ] && [ -f "$KERNEL_IMG" ]; then
+    echo "Using Kernel: $KERNEL_IMG"
+    echo "Using Initrd: $INITRD_IMG"
     cp "$KERNEL_IMG" /build/iso/boot/vmlinuz
     cp "$INITRD_IMG" /build/iso/boot/initrd
 else
