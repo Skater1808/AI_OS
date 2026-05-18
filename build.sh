@@ -24,15 +24,16 @@ mount -t sysfs sys "$ROOTFS/sys"
 mount --bind /dev "$ROOTFS/dev"
 mount -t devpts devpts "$ROOTFS/dev/pts"
 
-# Trap sorgt dafür, dass die Mounts bei Fehlern oder Abbruch sauber gelöst werden
+# Definiere die Unmount-Funktion
 cleanup() {
-    echo "Unmounting Virtual Filesystems..."
+    echo "Sauberes Lösen der virtuellen Dateisysteme..."
     umount -lf "$ROOTFS/proc" || true
     umount -lf "$ROOTFS/sys" || true
     umount -lf "$ROOTFS/dev/pts" || true
     umount -lf "$ROOTFS/dev" || true
 }
-trap cleanup EXIT
+# Falls das Skript vorzeitig wegen eines Fehlers abbricht, fangen wir das hier ab
+trap cleanup ERR
 
 # =====================================================================
 # 4. KERNEL & DEPENDENCIES INJEKTION (CHROOT)
@@ -85,13 +86,35 @@ if [ -f /build/scripts/download_model.sh ]; then
 fi
 
 # =====================================================================
-# 6. ISO DISTRIBUTION ASSEMBLY
+# 6. KERNEL-LOGISTIK VOR DEM UNMOUNT SICHERN
+# =====================================================================
+# Wir extrahieren die Kernel-Pfade, solange das Rootfs noch voll zugänglich ist
+KERNEL_IMG=""
+INITRD_IMG=""
+
+if [ -f "$ROOTFS/boot/vmlinuz-6.8.0-31-generic" ]; then
+    KERNEL_IMG="$ROOTFS/boot/vmlinuz-6.8.0-31-generic"
+    INITRD_IMG="$ROOTFS/boot/initrd.img-6.8.0-31-generic"
+else
+    KERNEL_IMG=$(ls -1 $ROOTFS/boot/vmlinuz-* 2>/dev/null | head -n 1)
+    INITRD_IMG=$(ls -1 $ROOTFS/boot/initrd.img-* 2>/dev/null | head -n 1)
+fi
+
+# =====================================================================
+# 7. UNMOUNT (WICHTIGSTE ÄNDERUNG!)
+# =====================================================================
+# Jetzt lösen wir die Mounts AUF JEDEN FALL auf, damit /proc, /sys und /dev leer sind!
+cleanup
+trap - ERR
+
+# =====================================================================
+# 8. ISO DISTRIBUTION ASSEMBLY
 # =====================================================================
 echo "Assembling ISO Distribution Framework..."
 mkdir -p /build/iso/boot/grub
 mkdir -p /build/iso/casper
 
-# Grub Config kopieren oder Fallback erstellen, falls Datei im Repo fehlt
+# Grub Config kopieren oder Fallback erstellen
 if [ -f /build/config/grub.cfg ]; then
     cp /build/config/grub.cfg /build/iso/boot/grub/
 else
@@ -107,22 +130,9 @@ menuentry "AiOS Linux (GNU/Linux)" {
 EOF
 fi
 
-# Lokalisierung der Kernel-Dateien mit direktem Fallback-Check
-KERNEL_IMG=""
-INITRD_IMG=""
-
-if [ -f "$ROOTFS/boot/vmlinuz-6.8.0-31-generic" ]; then
-    KERNEL_IMG="$ROOTFS/boot/vmlinuz-6.8.0-31-generic"
-    INITRD_IMG="$ROOTFS/boot/initrd.img-6.8.0-31-generic"
-else
-    # Letzter Versuch: Nimm was da ist
-    KERNEL_IMG=$(ls -1 $ROOTFS/boot/vmlinuz-* 2>/dev/null | head -n 1)
-    INITRD_IMG=$(ls -1 $ROOTFS/boot/initrd.img-* 2>/dev/null | head -n 1)
-fi
-
-# Das Filesystem in das komprimierte SquashFS packen
+# Das Filesystem in das komprimierte SquashFS packen (jetzt ohne /proc Fehler)
 echo "Creating SquashFS file system..."
-mksquashfs "$ROOTFS" /build/iso/casper/filesystem.squashfs -comp xz -e boot
+mksquashfs "$ROOTFS" /build/iso/casper/filesystem.squashfs -comp xz -e boot proc sys dev
 
 # Bereite die Boot-Dateien für die ISO vor
 if [ -n "$KERNEL_IMG" ] && [ -f "$KERNEL_IMG" ]; then
@@ -131,13 +141,9 @@ if [ -n "$KERNEL_IMG" ] && [ -f "$KERNEL_IMG" ]; then
     cp "$KERNEL_IMG" /build/iso/boot/vmlinuz
     cp "$INITRD_IMG" /build/iso/boot/initrd
 else
-    echo "CRITICAL ERROR: Kernel vmlinuz oder initrd fehlt im rootfs!"
+    echo "CRITICAL ERROR: Kernel vmlinuz oder initrd fehlt!"
     exit 1
 fi
-
-# Mounts explizit vor dem finalen Grub-ISO-Bau lösen
-cleanup
-trap - EXIT
 
 echo "Generating Final ISO Boot Medium..."
 grub-mkrescue -o /build/aios.iso /build/iso
