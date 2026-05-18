@@ -35,7 +35,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
                                 }
                             }
                             Err(e) => {
-                                princese_err!("Failed to read from stream for {}: {}", addr, e);
+                                // Hier war der Tippfehler – jetzt korrekt mit eprintln!
+                                eprintln!("Failed to read from stream for {}: {}", addr, e);
                                 break;
                             }
                         }
