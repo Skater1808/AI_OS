@@ -28,14 +28,19 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install Modular Magic CLI
+      # Wir nutzen Conda/Mamba, um den Modular-Paketmanager ohne curl direkt zu installieren
+      - name: Setup Conda Environment for Magic
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          python-version: "3.11"
+
+      - name: Install Magic Compiler via Conda Channel
+        shell: bash -l {0}
         run: |
-          # Nutzt das direkte, offizielle Installationsskript (keine HTML-Weiterleitung)
-          curl -ssL https://dl.modular.com/bsh/magic/latest/install.sh | bash
-          
-          # Registriert die neu erstellten Pfade im GitHub Runner Umgebungsprofil
-          echo "$HOME/.modular/bin" >> $GITHUB_PATH
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          conda install -c conda-forge -y mojosuites magic
+          # Pfad exportieren
+          echo "$(which magic)" >> $GITHUB_PATH
 
       - name: Prepare Workspace and Bypass Large Model Download
         run: |
@@ -50,6 +55,7 @@ jobs:
           sudo sed -i 's|/bin/bash /build/scripts/download_model.sh|# Bypass download|g' /build/build.sh
 
       - name: Execute AiOS Native Build Pipeline
+        shell: bash -l {0}
         run: |
           cd /build
           sudo chmod +x build.sh
