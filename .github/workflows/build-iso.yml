@@ -8,7 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Zwingt den Runner, direkt Node 24 zu nutzen, um die Warnungen zu unterdrücken
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - name: Checkout Code
@@ -29,9 +28,14 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install Modular CLI & Mojo
+      - name: Install Modular CLI & Magic Task Runner
         run: |
-          curl -ssL https://magic.modular.com | sh
+          # Offiziellen GPG-Schlüssel und Repository von Modular hinzufügen
+          curl -1sLf 'https://dl.modular.com/public/magic/cfg/setup/bash.deb.sh' | sudo -E bash
+          sudo apt-get update
+          sudo apt-get install -y modular magic
+          
+          # Pfade für die GitHub-Umgebung sichern
           echo "$HOME/.modular/bin" >> $GITHUB_PATH
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
@@ -40,12 +44,11 @@ jobs:
           sudo mkdir -p /build
           sudo cp -r ./* /build/
           
-          # Wir ersetzen den echten, schweren Download durch einen schnellen Dummy,
-          # damit der GitHub-Runner nicht wegen Netzwerk-Timeouts abbricht.
+          # Erstellt ein ressourcenschonendes Dummy-Modell für die CI/CD Pipeline
           sudo mkdir -p /build/rootfs/opt/aios/models/
           echo "DUMMY_LLM_WEIGHTS_FOR_CI_BUILD" | sudo tee /build/rootfs/opt/aios/models/qwen2.5-7b-instruct-q4_k_m.gguf > /dev/null
           
-          # Wir deaktivieren den echten Downloader im Build-Skript für GitHub
+          # Deaktiviert den echten Download-Prozess im Hauptskript
           sudo sed -i 's|/bin/bash /build/scripts/download_model.sh|# Bypass download|g' /build/build.sh
 
       - name: Execute AiOS Native Build Pipeline
