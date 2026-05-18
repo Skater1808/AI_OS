@@ -16,33 +16,37 @@ jobs:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    # 2. Verzeichnisstruktur vorbereiten
-    # Falls dein Repo die Ordner "core-daemon", "ai-engine" etc. direkt im Root hat,
-    # verschieben wir sie hier nach /build, damit das Shell-Skript die Pfade findet.
+    # 2. Host-System-Abhängigkeiten installieren (behebt debootstrap: command not found)
+    - name: Install Host Build Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y debootstrap squashfs-tools xorriso grub-pc-bin grub-common
+
+    # 3. Verzeichnisstruktur vorbereiten
     - name: Prepare Build Workspace
       run: |
         sudo mkdir -p /build
         sudo chown -R runner:docker /build
         cp -r * /build/
 
-    # 3. Offizielle Rust-Toolchain installieren
+    # 4. Offizielle Rust-Toolchain installieren
     - name: Install Rust Toolchain
       uses: dtolnay/rust-toolchain@stable
 
-    # 4. Rust System Daemon auf dem Host kompilieren (behebt Exit Code 127)
+    # 5. Rust System Daemon auf dem Host kompilieren
     - name: Build Rust Daemon on Host
       run: |
         cd /build/core-daemon
         cargo build --release
 
-    # 5. OS-Build-Skript mit Root-Rechten ausführen (behebt Python-Deadlock)
+    # 6. OS-Build-Skript mit Root-Rechten ausführen
     - name: Run OS Build Script (Debootstrap & ISO Generation)
       run: |
         cd /build
         sudo chmod +x build.sh
         sudo ./build.sh
 
-    # 6. Das fertige ISO-Bootmedium als GitHub-Artefakt bereitstellen
+    # 7. Das fertige ISO-Bootmedium als GitHub-Artefakt bereitstellen
     - name: Upload AiOS ISO Artifact
       uses: actions/upload-artifact@v4
       with:
