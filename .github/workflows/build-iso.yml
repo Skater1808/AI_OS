@@ -28,27 +28,25 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install Modular CLI & Magic Task Runner
+      - name: Install Modular Magic CLI via Standalone Binary
         run: |
-          # Offiziellen GPG-Schlüssel und Repository von Modular hinzufügen
-          curl -1sLf 'https://dl.modular.com/public/magic/cfg/setup/bash.deb.sh' | sudo -E bash
-          sudo apt-get update
-          sudo apt-get install -y modular magic
+          # Installation des eigenständigen Magic-Paketmanagers ohne APT-Abhängigkeit
+          curl -ssL https://magic.modular.com | bash
           
-          # Pfade für die GitHub-Umgebung sichern
+          # Magic-Pfad für nachfolgende GitHub-Schritte im Runner registrieren
           echo "$HOME/.modular/bin" >> $GITHUB_PATH
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Prepare Workspace and Bypass Large Model Download
         run: |
           sudo mkdir -p /build
           sudo cp -r ./* /build/
           
-          # Erstellt ein ressourcenschonendes Dummy-Modell für die CI/CD Pipeline
+          # Erstellt ein leichtgewichtiges Dummy-Modell für die CI-Pipeline
           sudo mkdir -p /build/rootfs/opt/aios/models/
           echo "DUMMY_LLM_WEIGHTS_FOR_CI_BUILD" | sudo tee /build/rootfs/opt/aios/models/qwen2.5-7b-instruct-q4_k_m.gguf > /dev/null
           
-          # Deaktiviert den echten Download-Prozess im Hauptskript
+          # Deaktiviert den echten Download-Prozess im Hauptskript für den Runner
           sudo sed -i 's|/bin/bash /build/scripts/download_model.sh|# Bypass download|g' /build/build.sh
 
       - name: Execute AiOS Native Build Pipeline
