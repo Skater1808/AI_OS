@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Behebt die Node.js Deprecation-Warnung für den Runner
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -14,14 +17,24 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build ISO via Docker
+      - name: Build Docker Toolchain Image
         run: |
           docker build -t aios-builder .
-          # Startet den Container privilegiert und kopiert die ISO heraus
-          docker run --privileged -v ${{ github.workspace }}:/dist aios-builder cp /build/aios.iso /dist/
+
+      - name: Execute Build Pipeline with Extended Privileges
+        # Wir starten den Container mit vollem Zugriff auf das Host-System,
+        # damit debootstrap und bubblewrap Dateisysteme mounten dürfen.
+        run: |
+          docker run --privileged \
+            --net=host \
+            -v /dev:/dev \
+            -v ${{ github.workspace }}:/dist \
+            aios-builder \
+            /bin/bash -c "cp -r . /build-exec && cd /build-exec && chmod +x build.sh && ./build.sh && cp /build-exec/aios.iso /dist/aios.iso"
 
       - name: Upload ISO Artifact
         uses: actions/upload-artifact@v4
         with:
           name: aios-iso-image
           path: aios.iso
+          if-no-files-found: error
