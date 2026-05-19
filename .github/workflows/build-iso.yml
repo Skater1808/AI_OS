@@ -19,26 +19,26 @@ jobs:
 
       - name: ISO Struktur aufbauen
         run: |
-          # Erstellt das Arbeitsverzeichnis für live-build außerhalb des Repository-Ordners
-          cd ..
-          mkdir live-build-env && cd live-build-env
+          # Erstellt den Build-Ordner im Home-Verzeichnis des Runners
+          mkdir -p /home/runner/live-build-env
+          cd /home/runner/live-build-env
           
-          # Initialisiert die Standard-Konfiguration für Debian
+          # Initialisiert die Konfiguration
           lb config --binary-images iso-hybrid
           
           # Erstellt den Zielordner im zukünftigen Linux-System
           mkdir -p config/includes.chroot/opt/ai_os
           
-          # Kopiert Ihr AI_OS Projekt sicher ohne Endlosschleife
-          rsync -av --exclude='live-build-env' ../github-workspace/ config/includes.chroot/opt/ai_os/
+          # Kopiert Ihr AI_OS Projekt über den exakten GitHub-Pfad
+          rsync -av --exclude='.git' --exclude='.github' "$GITHUB_WORKSPACE/" config/includes.chroot/opt/ai_os/
 
       - name: ISO kompilieren
         run: |
-          cd ../live-build-env
+          cd /home/runner/live-build-env
           sudo lb build
 
       - name: ISO als Download bereitstellen
         uses: actions/upload-artifact@v4
         with:
           name: AI_OS-Live-Image
-          path: ../live-build-env/*.iso
+          path: /home/runner/live-build-env/*.iso
