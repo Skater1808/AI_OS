@@ -15,16 +15,19 @@ jobs:
       - name: Build-Werkzeuge installieren
         run: |
           sudo apt-get update
-          sudo apt-get install -y live-build xorriso squashfs-tools rsync
+          sudo apt-get install -y live-build xorriso squashfs-tools rsync debootstrap
 
       - name: ISO Struktur aufbauen
         run: |
-          # Erstellt den Build-Ordner im Home-Verzeichnis des Runners
           mkdir -p /home/runner/live-build-env
           cd /home/runner/live-build-env
           
-          # Initialisiert die Konfiguration
-          lb config --binary-images iso-hybrid
+          # WICHTIG: Hier definieren wir Debian Bookworm als moderne, stabile 64-Bit Basis
+          lb config \
+            --distribution bookworm \
+            --architecture amd64 \
+            --binary-images iso-hybrid \
+            --debian-installer false
           
           # Erstellt den Zielordner im zukünftigen Linux-System
           mkdir -p config/includes.chroot/opt/ai_os
