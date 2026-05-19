@@ -2,8 +2,8 @@ name: Build AI_OS ISO
 
 on:
   push:
-    branches: [ "main" ]  # Löst den Build aus, sobald Sie Code hochladen
-  workflow_dispatch:     # Ermöglicht es, den Build manuell im Web zu starten
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,28 +12,33 @@ jobs:
       - name: Code auschecken
         uses: actions/checkout@v4
 
-      - name: Live-Build Tools installieren
+      - name: Build-Werkzeuge installieren
         run: |
           sudo apt-get update
-          sudo apt-get install -y live-build xorriso squashfs-tools
+          sudo apt-get install -y live-build xorriso squashfs-tools rsync
 
       - name: ISO Struktur aufbauen
         run: |
-          # Erstellt ein minimales Debian-Live-System
+          # Erstellt das Arbeitsverzeichnis für live-build außerhalb des Repository-Ordners
+          cd ..
           mkdir live-build-env && cd live-build-env
+          
+          # Initialisiert die Standard-Konfiguration für Debian
           lb config --binary-images iso-hybrid
           
-          # Hier kopieren Sie Ihr AI_OS Projekt in das spätere System (chroot)
+          # Erstellt den Zielordner im zukünftigen Linux-System
           mkdir -p config/includes.chroot/opt/ai_os
-          cp -r ../* config/includes.chroot/opt/ai_os/ || true
+          
+          # Kopiert Ihr AI_OS Projekt sicher ohne Endlosschleife
+          rsync -av --exclude='live-build-env' ../github-workspace/ config/includes.chroot/opt/ai_os/
 
       - name: ISO kompilieren
         run: |
-          cd live-build-env
+          cd ../live-build-env
           sudo lb build
 
       - name: ISO als Download bereitstellen
         uses: actions/upload-artifact@v4
         with:
           name: AI_OS-Live-Image
-          path: live-build-env/*.iso
+          path: ../live-build-env/*.iso
