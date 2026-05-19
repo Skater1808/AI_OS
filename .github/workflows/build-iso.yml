@@ -22,17 +22,14 @@ jobs:
           mkdir -p /home/runner/live-build-env
           cd /home/runner/live-build-env
           
-          lb clean --all
+          # Radikaler Reset: Löscht alte, fehlerhafte Konfigurationsbäume komplett
+          sudo lb clean --all
+          rm -rf config .build
           
-          # Hier erzwingen wir Debian-Standardwerte, da der Host ein Ubuntu ist
-          export LB_PARENT_DISTRIBUTION="bookworm"
-          export LB_PARENT_MIRROR_BOOTSTRAP="http://debian.org"
-          
-          # Konfiguration mit den exakten, echten Debian-Repository-URLs
+          # Absolut sichere Konfiguration mit den exakten Debian-Endpunkten
           lb config \
             --mode debian \
             --distribution bookworm \
-            --parent-distribution bookworm \
             --architecture amd64 \
             --binary-images iso-hybrid \
             --debian-installer false \
@@ -41,7 +38,7 @@ jobs:
             --mirror-binary "http://debian.org" \
             --keyring "/usr/share/keyrings/debian-archive-keyring.gpg"
           
-          # Erstellt die Zielordner im zukünftigen Linux-System
+          # Erstellt die Zielordner frisch
           mkdir -p config/includes.chroot/opt/ai_os
           mkdir -p config/includes.chroot/etc/systemd/system/multi-user.target.wants
           mkdir -p config/includes.chroot/lib/systemd/system
@@ -49,7 +46,7 @@ jobs:
           # Kopiert Ihr KI-Projekt in das System
           rsync -av --exclude='.git' --exclude='.github' "$GITHUB_WORKSPACE/" config/includes.chroot/opt/ai_os/
           
-          # Platziert Ihren aios-core.service an den richtigen Systemd-Orten im Image
+          # Platziert Ihren aios-core.service im Image
           if [ -f "$GITHUB_WORKSPACE/config/aios-core.service" ]; then
             cp "$GITHUB_WORKSPACE/config/aios-core.service" config/includes.chroot/lib/systemd/system/
             ln -sf /lib/systemd/system/aios-core.service config/includes.chroot/etc/systemd/system/multi-user.target.wants/aios-core.service
@@ -58,8 +55,7 @@ jobs:
       - name: ISO kompilieren
         run: |
           cd /home/runner/live-build-env
-          # Umgebungsvariablen auch beim Build-Schritt mitgeben
-          sudo LB_PARENT_DISTRIBUTION="bookworm" LB_PARENT_MIRROR_BOOTSTRAP="http://debian.org" lb build
+          sudo lb build
 
       - name: ISO als Download bereitstellen
         uses: actions/upload-artifact@v4
