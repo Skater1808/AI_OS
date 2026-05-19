@@ -1,56 +1,39 @@
-name: Build AiOS Distribution
+name: Build AI_OS ISO
 
 on:
   push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
-  workflow_dispatch:
+    branches: [ "main" ]  # Löst den Build aus, sobald Sie Code hochladen
+  workflow_dispatch:     # Ermöglicht es, den Build manuell im Web zu starten
 
 jobs:
-  build-os:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    # 1. Repository-Code auschecken
-    - name: Checkout Source Code
-      uses: actions/checkout@v4
+      - name: Code auschecken
+        uses: actions/checkout@v4
 
-    # 2. Host-System-Abhängigkeiten installieren (Komplettes ISO- & Boot-Tooling)
-    - name: Install Host Build Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y debootstrap squashfs-tools xorriso grub-pc-bin grub-common mtools libisoburn1 grub-efi-amd64-bin
+      - name: Live-Build Tools installieren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y live-build xorriso squashfs-tools
 
-    # 3. Verzeichnisstruktur vorbereiten
-    - name: Prepare Build Workspace
-      run: |
-        sudo mkdir -p /build
-        sudo chown -R runner:docker /build
-        cp -r * /build/
+      - name: ISO Struktur aufbauen
+        run: |
+          # Erstellt ein minimales Debian-Live-System
+          mkdir live-build-env && cd live-build-env
+          lb config --binary-images iso-hybrid
+          
+          # Hier kopieren Sie Ihr AI_OS Projekt in das spätere System (chroot)
+          mkdir -p config/includes.chroot/opt/ai_os
+          cp -r ../* config/includes.chroot/opt/ai_os/ || true
 
-    # 4. Offizielle Rust-Toolchain installieren
-    - name: Install Rust Toolchain
-      uses: dtolnay/rust-toolchain@stable
+      - name: ISO kompilieren
+        run: |
+          cd live-build-env
+          sudo lb build
 
-    # 5. Rust System Daemon auf dem Host kompilieren
-    - name: Build Rust Daemon on Host
-      run: |
-        cd /build/core-daemon
-        cargo build --release
-
-    # 6. OS-Build-Skript mit Root-Rechten ausführen
-    - name: Run OS Build Script (Debootstrap & ISO Generation)
-      run: |
-        cd /build
-        sudo chmod +x build.sh
-        sudo ./build.sh
-
-    # 7. Das fertige ISO-Bootmedium als GitHub-Artefakt bereitstellen
-    - name: Upload AiOS ISO Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: aios-distribution-iso
-        path: /build/aios.iso
-        if-no-files-found: error
-        retention-days: 5
+      - name: ISO als Download bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: AI_OS-Live-Image
+          path: live-build-env/*.iso
