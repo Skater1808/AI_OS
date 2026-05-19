@@ -12,27 +12,35 @@ jobs:
       - name: Code auschecken
         uses: actions/checkout@v4
 
-      - name: Build-Werkzeuge installieren
+      - name: Build-Werkzeuge und Debian-Schlüssel installieren
         run: |
           sudo apt-get update
-          sudo apt-get install -y live-build xorriso squashfs-tools rsync debootstrap
+          # Installiert debootstrap und die originalen Debian-Schlüssel (Keyrings)
+          sudo apt-get install -y live-build xorriso squashfs-tools rsync debootstrap debian-archive-keyring
 
       - name: ISO Struktur aufbauen
         run: |
           mkdir -p /home/runner/live-build-env
           cd /home/runner/live-build-env
           
-          # WICHTIG: Hier definieren wir Debian Bookworm als moderne, stabile 64-Bit Basis
+          # Bereinigt eventuelle Reste
+          lb clean --all
+          
+          # Konfiguration mit expliziten Debian-Servern und Schlüsseln
           lb config \
             --distribution bookworm \
             --architecture amd64 \
             --binary-images iso-hybrid \
-            --debian-installer false
+            --debian-installer false \
+            --mirror-bootstrap "http://debian.org" \
+            --mirror-chroot "http://debian.org" \
+            --mirror-binary "http://debian.org" \
+            --keyring "/usr/share/keyrings/debian-archive-keyring.gpg"
           
           # Erstellt den Zielordner im zukünftigen Linux-System
           mkdir -p config/includes.chroot/opt/ai_os
           
-          # Kopiert Ihr AI_OS Projekt über den exakten GitHub-Pfad
+          # Kopiert Ihr AI_OS Projekt ohne Git-Müll
           rsync -av --exclude='.git' --exclude='.github' "$GITHUB_WORKSPACE/" config/includes.chroot/opt/ai_os/
 
       - name: ISO kompilieren
