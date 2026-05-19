@@ -22,21 +22,25 @@ jobs:
           mkdir -p /home/runner/live-build-env
           cd /home/runner/live-build-env
           
-          # Radikaler Reset: Löscht alte, fehlerhafte Konfigurationsbäume komplett
+          # Radikaler Reset aller alten Konfigurationen
           sudo lb clean --all
           rm -rf config .build
           
-          # Absolut sichere Konfiguration mit den exakten Debian-Endpunkten
+          # Erstellt die Grundkonfiguration
           lb config \
             --mode debian \
             --distribution bookworm \
             --architecture amd64 \
             --binary-images iso-hybrid \
-            --debian-installer false \
-            --mirror-bootstrap "http://debian.org" \
-            --mirror-chroot "http://debian.org" \
-            --mirror-binary "http://debian.org" \
-            --keyring "/usr/share/keyrings/debian-archive-keyring.gpg"
+            --debian-installer false
+          
+          # ERZWUNGENES ÜBERSCHREIBEN: Wir schreiben die richtigen Server direkt in die Konfigurationsdatei
+          echo 'LB_MIRROR_BOOTSTRAP="http://debian.org"' >> config/common
+          echo 'LB_MIRROR_CHROOT="http://debian.org"' >> config/common
+          echo 'LB_MIRROR_BINARY="http://debian.org"' >> config/common
+          echo 'LB_PARENT_MIRROR_BOOTSTRAP="http://debian.org"' >> config/common
+          echo 'LB_PARENT_MIRROR_CHROOT="http://debian.org"' >> config/common
+          echo 'LB_PARENT_MIRROR_BINARY="http://debian.org"' >> config/common
           
           # Erstellt die Zielordner frisch
           mkdir -p config/includes.chroot/opt/ai_os
