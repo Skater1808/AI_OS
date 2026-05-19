@@ -15,7 +15,6 @@ jobs:
       - name: Build-Werkzeuge und Debian-Schlüssel installieren
         run: |
           sudo apt-get update
-          # Installiert debootstrap und die originalen Debian-Schlüssel (Keyrings)
           sudo apt-get install -y live-build xorriso squashfs-tools rsync debootstrap debian-archive-keyring
 
       - name: ISO Struktur aufbauen
@@ -23,12 +22,17 @@ jobs:
           mkdir -p /home/runner/live-build-env
           cd /home/runner/live-build-env
           
-          # Bereinigt eventuelle Reste
           lb clean --all
           
-          # Konfiguration mit expliziten Debian-Servern und Schlüsseln
+          # Hier erzwingen wir Debian-Standardwerte, da der Host ein Ubuntu ist
+          export LB_PARENT_DISTRIBUTION="bookworm"
+          export LB_PARENT_MIRROR_BOOTSTRAP="http://debian.org"
+          
+          # Konfiguration mit den exakten, echten Debian-Repository-URLs
           lb config \
+            --mode debian \
             --distribution bookworm \
+            --parent-distribution bookworm \
             --architecture amd64 \
             --binary-images iso-hybrid \
             --debian-installer false \
@@ -37,16 +41,25 @@ jobs:
             --mirror-binary "http://debian.org" \
             --keyring "/usr/share/keyrings/debian-archive-keyring.gpg"
           
-          # Erstellt den Zielordner im zukünftigen Linux-System
+          # Erstellt die Zielordner im zukünftigen Linux-System
           mkdir -p config/includes.chroot/opt/ai_os
+          mkdir -p config/includes.chroot/etc/systemd/system/multi-user.target.wants
+          mkdir -p config/includes.chroot/lib/systemd/system
           
-          # Kopiert Ihr AI_OS Projekt ohne Git-Müll
+          # Kopiert Ihr KI-Projekt in das System
           rsync -av --exclude='.git' --exclude='.github' "$GITHUB_WORKSPACE/" config/includes.chroot/opt/ai_os/
+          
+          # Platziert Ihren aios-core.service an den richtigen Systemd-Orten im Image
+          if [ -f "$GITHUB_WORKSPACE/config/aios-core.service" ]; then
+            cp "$GITHUB_WORKSPACE/config/aios-core.service" config/includes.chroot/lib/systemd/system/
+            ln -sf /lib/systemd/system/aios-core.service config/includes.chroot/etc/systemd/system/multi-user.target.wants/aios-core.service
+          fi
 
       - name: ISO kompilieren
         run: |
           cd /home/runner/live-build-env
-          sudo lb build
+          # Umgebungsvariablen auch beim Build-Schritt mitgeben
+          sudo LB_PARENT_DISTRIBUTION="bookworm" LB_PARENT_MIRROR_BOOTSTRAP="http://debian.org" lb build
 
       - name: ISO als Download bereitstellen
         uses: actions/upload-artifact@v4
