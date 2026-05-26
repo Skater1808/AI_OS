@@ -1,0 +1,7 @@
+162748df7b98acd4b05ff7c243f59a21  usr/lib/x86_64-linux-gnu/libply-boot-client.so.5.0.0
+c84db879ad2be6f626f5162c44ed4b15  usr/lib/x86_64-linux-gnu/libply-splash-core.so.5.0.0
+05c14bb5f98b02fe7f05883d0231434e  usr/lib/x86_64-linux-gnu/libply-splash-graphics.so.5.0.0
+08ce7670e8fcc674a6e20b8b7e9c78cd  usr/lib/x86_64-linux-gnu/libply.so.5.0.0
+4425a6412171b23d19b99e10e0dc387e  usr/share/doc/libplymouth5/changelog.Debian.gz
+fac32bda1cab0ce9d7cc74a97852d80e  usr/share/doc/libplymouth5/copyright
+8dda37e6f2383c05f4f45887d34a6684  usr/share/lintian/overrides/libplymouth5

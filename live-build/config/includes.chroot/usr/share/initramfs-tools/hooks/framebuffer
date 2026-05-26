@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# shellcheck disable=SC2034
+OPTION=FRAMEBUFFER
+PREREQ=""
+
+prereqs()
+{
+	echo "$PREREQ"
+}
+
+case $1 in
+# get pre-requisites
+prereqs)
+	prereqs
+	exit 0
+	;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+if [ "${MODULES-}" = "dep" ]; then
+	if [ -e /sys/class/drm ]; then
+		class_add_modules drm
+	fi
+elif [ "${MODULES-}" != "list" ]; then
+	auto_add_modules fbdev minimal_drm
+fi

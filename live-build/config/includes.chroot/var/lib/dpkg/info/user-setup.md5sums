@@ -1,0 +1,8 @@
+f9099f22480d83e6c852b9dd679c318f  usr/bin/user-setup
+e6a88de19c09e399b041d1509602e353  usr/lib/user-setup/functions.sh
+c04b2d29bb05931d4cd955ac3cb55ce0  usr/lib/user-setup/reserved-usernames
+66862df5b939aeeb72cfc191b11164f4  usr/lib/user-setup/user-setup-apply
+51e14605ba86bf63f9f39f49c6b6b84d  usr/lib/user-setup/user-setup-ask
+71b4307a44bc37b71444db4780177e88  usr/share/doc/user-setup/changelog.gz
+f61dcb500ccda9b017361e98f4f26922  usr/share/doc/user-setup/copyright
+36017bc93101c02670bbb16d1853bb6d  usr/share/lintian/overrides/user-setup

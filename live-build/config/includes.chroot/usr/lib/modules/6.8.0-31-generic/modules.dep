@@ -1,0 +1,1003 @@
+kernel/arch/x86/kernel/cpu/mce/mce-inject.ko.zst:
+kernel/arch/x86/kernel/msr.ko.zst:
+kernel/arch/x86/kernel/cpuid.ko.zst:
+kernel/arch/x86/crypto/twofish-x86_64.ko.zst: kernel/crypto/twofish_common.ko.zst
+kernel/arch/x86/crypto/twofish-x86_64-3way.ko.zst: kernel/arch/x86/crypto/twofish-x86_64.ko.zst kernel/crypto/twofish_common.ko.zst
+kernel/arch/x86/crypto/twofish-avx-x86_64.ko.zst: kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst kernel/arch/x86/crypto/twofish-x86_64-3way.ko.zst kernel/arch/x86/crypto/twofish-x86_64.ko.zst kernel/crypto/twofish_common.ko.zst
+kernel/arch/x86/crypto/serpent-sse2-x86_64.ko.zst: kernel/crypto/serpent_generic.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/serpent-avx-x86_64.ko.zst: kernel/crypto/serpent_generic.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/serpent-avx2.ko.zst: kernel/arch/x86/crypto/serpent-avx-x86_64.ko.zst kernel/crypto/serpent_generic.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/des3_ede-x86_64.ko.zst: kernel/lib/crypto/libdes.ko.zst
+kernel/arch/x86/crypto/camellia-x86_64.ko.zst:
+kernel/arch/x86/crypto/camellia-aesni-avx-x86_64.ko.zst: kernel/arch/x86/crypto/camellia-x86_64.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/camellia-aesni-avx2.ko.zst: kernel/arch/x86/crypto/camellia-aesni-avx-x86_64.ko.zst kernel/arch/x86/crypto/camellia-x86_64.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/blowfish-x86_64.ko.zst: kernel/crypto/blowfish_common.ko.zst
+kernel/arch/x86/crypto/cast5-avx-x86_64.ko.zst: kernel/crypto/cast5_generic.ko.zst kernel/crypto/cast_common.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/cast6-avx-x86_64.ko.zst: kernel/crypto/cast6_generic.ko.zst kernel/crypto/cast_common.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/aegis128-aesni.ko.zst: kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/chacha-x86_64.ko.zst: kernel/lib/crypto/libchacha.ko.zst
+kernel/arch/x86/crypto/aesni-intel.ko.zst: kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/sha1-ssse3.ko.zst:
+kernel/arch/x86/crypto/sha256-ssse3.ko.zst:
+kernel/arch/x86/crypto/ghash-clmulni-intel.ko.zst: kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/polyval-clmulni.ko.zst: kernel/crypto/polyval-generic.ko.zst
+kernel/arch/x86/crypto/crc32-pclmul.ko.zst:
+kernel/arch/x86/crypto/crct10dif-pclmul.ko.zst:
+kernel/arch/x86/crypto/poly1305-x86_64.ko.zst:
+kernel/arch/x86/crypto/nhpoly1305-sse2.ko.zst: kernel/crypto/nhpoly1305.ko.zst kernel/lib/crypto/libpoly1305.ko.zst
+kernel/arch/x86/crypto/nhpoly1305-avx2.ko.zst: kernel/crypto/nhpoly1305.ko.zst kernel/lib/crypto/libpoly1305.ko.zst
+kernel/arch/x86/crypto/curve25519-x86_64.ko.zst: kernel/lib/crypto/libcurve25519-generic.ko.zst
+kernel/arch/x86/crypto/sm3-avx-x86_64.ko.zst: kernel/crypto/sm3.ko.zst
+kernel/arch/x86/crypto/sm4-aesni-avx-x86_64.ko.zst: kernel/crypto/sm4.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/sm4-aesni-avx2-x86_64.ko.zst: kernel/arch/x86/crypto/sm4-aesni-avx-x86_64.ko.zst kernel/crypto/sm4.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/aria-aesni-avx-x86_64.ko.zst: kernel/crypto/aria_generic.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/aria-aesni-avx2-x86_64.ko.zst: kernel/arch/x86/crypto/aria-aesni-avx-x86_64.ko.zst kernel/crypto/aria_generic.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/crypto/aria-gfni-avx512-x86_64.ko.zst: kernel/arch/x86/crypto/aria-aesni-avx2-x86_64.ko.zst kernel/arch/x86/crypto/aria-aesni-avx-x86_64.ko.zst kernel/crypto/aria_generic.ko.zst kernel/crypto/crypto_simd.ko.zst kernel/crypto/cryptd.ko.zst
+kernel/arch/x86/kvm/kvm.ko.zst: kernel/virt/lib/irqbypass.ko.zst
+kernel/arch/x86/kvm/kvm-intel.ko.zst: kernel/arch/x86/kvm/kvm.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/arch/x86/kvm/kvm-amd.ko.zst: kernel/drivers/crypto/ccp/ccp.ko.zst kernel/arch/x86/kvm/kvm.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/fs/nfs_common/nfs_acl.ko.zst: kernel/net/sunrpc/sunrpc.ko.zst
+kernel/fs/nfs_common/grace.ko.zst:
+kernel/fs/fat/msdos.ko.zst:
+kernel/fs/nls/nls_iso8859-1.ko.zst:
+kernel/fs/fuse/cuse.ko.zst:
+kernel/fs/fuse/virtiofs.ko.zst:
+kernel/fs/binfmt_misc.ko.zst:
+kernel/fs/dlm/dlm.ko.zst:
+kernel/fs/netfs/netfs.ko.zst:
+kernel/fs/isofs/isofs.ko.zst:
+kernel/fs/nfs/nfs.ko.zst: kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/nfs/nfsv2.ko.zst: kernel/fs/nfs/nfs.ko.zst kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/nfs/nfsv3.ko.zst: kernel/fs/nfs_common/nfs_acl.ko.zst kernel/fs/nfs/nfs.ko.zst kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/nfs/nfsv4.ko.zst: kernel/fs/nfs/nfs.ko.zst kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/nfs/filelayout/nfs_layout_nfsv41_files.ko.zst: kernel/fs/nfs/nfsv4.ko.zst kernel/fs/nfs/nfs.ko.zst kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/nfs/blocklayout/blocklayoutdriver.ko.zst: kernel/fs/nfs/nfsv4.ko.zst kernel/fs/nfs/nfs.ko.zst kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/nfs/flexfilelayout/nfs_layout_flexfiles.ko.zst: kernel/fs/nfs/nfsv4.ko.zst kernel/fs/nfs/nfs.ko.zst kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/nfsd/nfsd.ko.zst: kernel/net/sunrpc/auth_gss/auth_rpcgss.ko.zst kernel/fs/nfs_common/nfs_acl.ko.zst kernel/fs/lockd/lockd.ko.zst kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst
+kernel/fs/lockd/lockd.ko.zst: kernel/fs/nfs_common/grace.ko.zst kernel/net/sunrpc/sunrpc.ko.zst
+kernel/fs/ufs/ufs.ko.zst:
+kernel/fs/autofs/autofs4.ko.zst:
+kernel/fs/overlayfs/overlay.ko.zst:
+kernel/fs/udf/udf.ko.zst: kernel/lib/crc-itu-t.ko.zst
+kernel/fs/xfs/xfs.ko.zst: kernel/lib/libcrc32c.ko.zst
+kernel/fs/9p/9p.ko.zst: kernel/net/9p/9pnet.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/cachefiles/cachefiles.ko.zst: kernel/fs/netfs/netfs.ko.zst
+kernel/fs/btrfs/btrfs.ko.zst: kernel/crypto/xor.ko.zst kernel/lib/raid6/raid6_pq.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/fs/ceph/ceph.ko.zst: kernel/net/ceph/libceph.ko.zst kernel/lib/libcrc32c.ko.zst kernel/fs/netfs/netfs.ko.zst
+kernel/fs/erofs/erofs.ko.zst: kernel/lib/libcrc32c.ko.zst
+kernel/fs/vboxsf/vboxsf.ko.zst: kernel/drivers/virt/vboxguest/vboxguest.ko.zst
+kernel/crypto/asymmetric_keys/pkcs8_key_parser.ko.zst:
+kernel/crypto/asymmetric_keys/pkcs7_test_key.ko.zst:
+kernel/crypto/crypto_engine.ko.zst:
+kernel/crypto/echainiv.ko.zst:
+kernel/crypto/sm2_generic.ko.zst:
+kernel/crypto/ecdsa_generic.ko.zst: kernel/crypto/ecc.ko.zst
+kernel/crypto/crypto_user.ko.zst:
+kernel/crypto/cmac.ko.zst:
+kernel/crypto/vmac.ko.zst:
+kernel/crypto/xcbc.ko.zst:
+kernel/crypto/md4.ko.zst:
+kernel/crypto/rmd160.ko.zst:
+kernel/crypto/sm3.ko.zst:
+kernel/crypto/sm3_generic.ko.zst: kernel/crypto/sm3.ko.zst
+kernel/crypto/streebog_generic.ko.zst:
+kernel/crypto/wp512.ko.zst:
+kernel/crypto/blake2b_generic.ko.zst:
+kernel/crypto/pcbc.ko.zst:
+kernel/crypto/lrw.ko.zst:
+kernel/crypto/xctr.ko.zst:
+kernel/crypto/hctr2.ko.zst:
+kernel/crypto/keywrap.ko.zst:
+kernel/crypto/adiantum.ko.zst: kernel/lib/crypto/libpoly1305.ko.zst
+kernel/crypto/nhpoly1305.ko.zst: kernel/lib/crypto/libpoly1305.ko.zst
+kernel/crypto/ccm.ko.zst:
+kernel/crypto/chacha20poly1305.ko.zst:
+kernel/crypto/aegis128.ko.zst:
+kernel/crypto/pcrypt.ko.zst:
+kernel/crypto/cryptd.ko.zst:
+kernel/crypto/des_generic.ko.zst: kernel/lib/crypto/libdes.ko.zst
+kernel/crypto/fcrypt.ko.zst:
+kernel/crypto/blowfish_generic.ko.zst: kernel/crypto/blowfish_common.ko.zst
+kernel/crypto/blowfish_common.ko.zst:
+kernel/crypto/twofish_generic.ko.zst: kernel/crypto/twofish_common.ko.zst
+kernel/crypto/twofish_common.ko.zst:
+kernel/crypto/serpent_generic.ko.zst:
+kernel/crypto/sm4.ko.zst:
+kernel/crypto/sm4_generic.ko.zst: kernel/crypto/sm4.ko.zst
+kernel/crypto/aes_ti.ko.zst:
+kernel/crypto/camellia_generic.ko.zst:
+kernel/crypto/cast_common.ko.zst:
+kernel/crypto/cast5_generic.ko.zst: kernel/crypto/cast_common.ko.zst
+kernel/crypto/cast6_generic.ko.zst: kernel/crypto/cast_common.ko.zst
+kernel/crypto/aria_generic.ko.zst:
+kernel/crypto/chacha_generic.ko.zst: kernel/lib/crypto/libchacha.ko.zst
+kernel/crypto/poly1305_generic.ko.zst: kernel/lib/crypto/libpoly1305.ko.zst
+kernel/crypto/michael_mic.ko.zst:
+kernel/crypto/crc32_generic.ko.zst:
+kernel/crypto/authenc.ko.zst:
+kernel/crypto/authencesn.ko.zst: kernel/crypto/authenc.ko.zst
+kernel/crypto/lz4.ko.zst: kernel/lib/lz4/lz4_compress.ko.zst
+kernel/crypto/lz4hc.ko.zst: kernel/lib/lz4/lz4hc_compress.ko.zst
+kernel/crypto/xxhash_generic.ko.zst:
+kernel/crypto/842.ko.zst: kernel/lib/842/842_decompress.ko.zst kernel/lib/842/842_compress.ko.zst
+kernel/crypto/ansi_cprng.ko.zst:
+kernel/crypto/tcrypt.ko.zst:
+kernel/crypto/polyval-generic.ko.zst:
+kernel/crypto/af_alg.ko.zst:
+kernel/crypto/algif_hash.ko.zst: kernel/crypto/af_alg.ko.zst
+kernel/crypto/algif_skcipher.ko.zst: kernel/crypto/af_alg.ko.zst
+kernel/crypto/algif_rng.ko.zst: kernel/crypto/af_alg.ko.zst
+kernel/crypto/algif_aead.ko.zst: kernel/crypto/af_alg.ko.zst
+kernel/crypto/zstd.ko.zst:
+kernel/crypto/ecc.ko.zst:
+kernel/crypto/essiv.ko.zst: kernel/crypto/authenc.ko.zst
+kernel/crypto/curve25519-generic.ko.zst: kernel/lib/crypto/libcurve25519-generic.ko.zst
+kernel/crypto/ecdh_generic.ko.zst: kernel/crypto/ecc.ko.zst
+kernel/crypto/ecrdsa_generic.ko.zst: kernel/crypto/ecc.ko.zst
+kernel/crypto/xor.ko.zst:
+kernel/crypto/async_tx/async_tx.ko.zst:
+kernel/crypto/async_tx/async_memcpy.ko.zst: kernel/crypto/async_tx/async_tx.ko.zst
+kernel/crypto/async_tx/async_xor.ko.zst: kernel/crypto/async_tx/async_tx.ko.zst kernel/crypto/xor.ko.zst
+kernel/crypto/async_tx/async_pq.ko.zst: kernel/crypto/async_tx/async_xor.ko.zst kernel/crypto/async_tx/async_tx.ko.zst kernel/crypto/xor.ko.zst kernel/lib/raid6/raid6_pq.ko.zst
+kernel/crypto/async_tx/async_raid6_recov.ko.zst: kernel/crypto/async_tx/async_memcpy.ko.zst kernel/crypto/async_tx/async_pq.ko.zst kernel/crypto/async_tx/async_xor.ko.zst kernel/crypto/async_tx/async_tx.ko.zst kernel/crypto/xor.ko.zst kernel/lib/raid6/raid6_pq.ko.zst
+kernel/crypto/crypto_simd.ko.zst: kernel/crypto/cryptd.ko.zst
+kernel/lib/math/cordic.ko.zst:
+kernel/lib/crypto/libchacha.ko.zst:
+kernel/lib/crypto/libarc4.ko.zst:
+kernel/lib/crypto/libchacha20poly1305.ko.zst: kernel/arch/x86/crypto/chacha-x86_64.ko.zst kernel/arch/x86/crypto/poly1305-x86_64.ko.zst kernel/lib/crypto/libchacha.ko.zst
+kernel/lib/crypto/libcurve25519-generic.ko.zst:
+kernel/lib/crypto/libcurve25519.ko.zst:
+kernel/lib/crypto/libdes.ko.zst:
+kernel/lib/crypto/libpoly1305.ko.zst:
+kernel/lib/lz4/lz4_compress.ko.zst:
+kernel/lib/lz4/lz4hc_compress.ko.zst:
+kernel/lib/xz/xz_dec_test.ko.zst:
+kernel/lib/test_bpf.ko.zst:
+kernel/lib/test_blackhole_dev.ko.zst:
+kernel/lib/crc-itu-t.ko.zst:
+kernel/lib/crc4.ko.zst:
+kernel/lib/crc7.ko.zst:
+kernel/lib/libcrc32c.ko.zst:
+kernel/lib/crc8.ko.zst:
+kernel/lib/842/842_compress.ko.zst:
+kernel/lib/842/842_decompress.ko.zst:
+kernel/lib/reed_solomon/reed_solomon.ko.zst:
+kernel/lib/bch.ko.zst:
+kernel/lib/raid6/raid6_pq.ko.zst:
+kernel/lib/ts_kmp.ko.zst:
+kernel/lib/ts_bm.ko.zst:
+kernel/lib/ts_fsm.ko.zst:
+kernel/lib/notifier-error-inject.ko.zst:
+kernel/lib/pm-notifier-error-inject.ko.zst: kernel/lib/notifier-error-inject.ko.zst
+kernel/lib/memory-notifier-error-inject.ko.zst: kernel/lib/notifier-error-inject.ko.zst
+kernel/lib/lru_cache.ko.zst:
+kernel/lib/polynomial.ko.zst:
+kernel/lib/parman.ko.zst:
+kernel/lib/objagg.ko.zst:
+kernel/drivers/bus/mhi/host/mhi.ko.zst:
+kernel/drivers/pci/controller/pci-hyperv-intf.ko.zst:
+kernel/drivers/video/fbdev/core/svgalib.ko.zst:
+kernel/drivers/video/fbdev/core/fb_ddc.ko.zst:
+kernel/drivers/video/fbdev/arcfb.ko.zst:
+kernel/drivers/video/fbdev/cyber2000fb.ko.zst: kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/pm2fb.ko.zst:
+kernel/drivers/video/fbdev/pm3fb.ko.zst:
+kernel/drivers/video/fbdev/i740fb.ko.zst: kernel/drivers/video/fbdev/core/fb_ddc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/matrox/matroxfb_base.ko.zst: kernel/drivers/video/fbdev/matrox/matroxfb_g450.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_Ti3026.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_accel.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_DAC1064.ko.zst kernel/drivers/video/fbdev/matrox/g450_pll.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst
+kernel/drivers/video/fbdev/matrox/matroxfb_accel.ko.zst:
+kernel/drivers/video/fbdev/matrox/matroxfb_DAC1064.ko.zst: kernel/drivers/video/fbdev/matrox/g450_pll.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst
+kernel/drivers/video/fbdev/matrox/matroxfb_Ti3026.ko.zst: kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst
+kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst:
+kernel/drivers/video/fbdev/matrox/g450_pll.ko.zst: kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst
+kernel/drivers/video/fbdev/matrox/matroxfb_g450.ko.zst: kernel/drivers/video/fbdev/matrox/g450_pll.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst
+kernel/drivers/video/fbdev/matrox/matroxfb_crtc2.ko.zst: kernel/drivers/video/fbdev/matrox/matroxfb_base.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_g450.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_Ti3026.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_accel.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_DAC1064.ko.zst kernel/drivers/video/fbdev/matrox/g450_pll.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst
+kernel/drivers/video/fbdev/matrox/i2c-matroxfb.ko.zst: kernel/drivers/video/fbdev/matrox/matroxfb_base.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_g450.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_Ti3026.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_accel.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_DAC1064.ko.zst kernel/drivers/video/fbdev/matrox/g450_pll.ko.zst kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/matrox/matroxfb_maven.ko.zst: kernel/drivers/video/fbdev/matrox/matroxfb_misc.ko.zst
+kernel/drivers/video/fbdev/riva/rivafb.ko.zst: kernel/drivers/video/vgastate.ko.zst kernel/drivers/video/fbdev/core/fb_ddc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/nvidia/nvidiafb.ko.zst: kernel/drivers/video/vgastate.ko.zst kernel/drivers/video/fbdev/core/fb_ddc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/aty/atyfb.ko.zst:
+kernel/drivers/video/fbdev/aty/aty128fb.ko.zst:
+kernel/drivers/video/fbdev/aty/radeonfb.ko.zst: kernel/drivers/video/fbdev/core/fb_ddc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/macmodes.ko.zst:
+kernel/drivers/video/fbdev/sis/sisfb.ko.zst:
+kernel/drivers/video/fbdev/via/viafb.ko.zst: kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/kyro/kyrofb.ko.zst:
+kernel/drivers/video/fbdev/savage/savagefb.ko.zst: kernel/drivers/video/vgastate.ko.zst kernel/drivers/video/fbdev/core/fb_ddc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/neofb.ko.zst: kernel/drivers/video/vgastate.ko.zst
+kernel/drivers/video/fbdev/tdfxfb.ko.zst:
+kernel/drivers/video/fbdev/vt8623fb.ko.zst: kernel/drivers/video/fbdev/core/svgalib.ko.zst kernel/drivers/video/vgastate.ko.zst
+kernel/drivers/video/fbdev/tridentfb.ko.zst: kernel/drivers/video/fbdev/core/fb_ddc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/s3fb.ko.zst: kernel/drivers/video/fbdev/core/svgalib.ko.zst kernel/drivers/video/vgastate.ko.zst kernel/drivers/video/fbdev/core/fb_ddc.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/video/fbdev/arkfb.ko.zst: kernel/drivers/video/fbdev/core/svgalib.ko.zst kernel/drivers/video/vgastate.ko.zst
+kernel/drivers/video/fbdev/hecubafb.ko.zst:
+kernel/drivers/video/fbdev/n411.ko.zst:
+kernel/drivers/video/fbdev/hgafb.ko.zst:
+kernel/drivers/video/fbdev/sstfb.ko.zst:
+kernel/drivers/video/fbdev/cirrusfb.ko.zst:
+kernel/drivers/video/fbdev/metronomefb.ko.zst:
+kernel/drivers/video/fbdev/s1d13xxxfb.ko.zst:
+kernel/drivers/video/fbdev/sm501fb.ko.zst: kernel/drivers/mfd/sm501.ko.zst
+kernel/drivers/video/fbdev/udlfb.ko.zst:
+kernel/drivers/video/fbdev/smscufx.ko.zst:
+kernel/drivers/video/fbdev/xen-fbfront.ko.zst:
+kernel/drivers/video/fbdev/carminefb.ko.zst:
+kernel/drivers/video/fbdev/mb862xx/mb862xxfb.ko.zst:
+kernel/drivers/video/fbdev/hyperv_fb.ko.zst: kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/drivers/video/fbdev/ocfb.ko.zst:
+kernel/drivers/video/fbdev/sm712fb.ko.zst:
+kernel/drivers/video/fbdev/uvesafb.ko.zst:
+kernel/drivers/video/fbdev/vga16fb.ko.zst: kernel/drivers/video/vgastate.ko.zst
+kernel/drivers/video/fbdev/ssd1307fb.ko.zst:
+kernel/drivers/video/vgastate.ko.zst:
+kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst:
+kernel/drivers/char/ipmi/ipmi_devintf.ko.zst: kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst
+kernel/drivers/char/ipmi/ipmi_si.ko.zst: kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst
+kernel/drivers/char/ipmi/ipmi_ssif.ko.zst: kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst
+kernel/drivers/char/ipmi/ipmi_watchdog.ko.zst: kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst
+kernel/drivers/char/ipmi/ipmi_poweroff.ko.zst: kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst
+kernel/drivers/acpi/apei/einj.ko.zst:
+kernel/drivers/acpi/dptf/dptf_power.ko.zst:
+kernel/drivers/acpi/dptf/dptf_pch_fivr.ko.zst:
+kernel/drivers/acpi/acpi_ipmi.ko.zst: kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst
+kernel/drivers/acpi/video.ko.zst: kernel/drivers/platform/x86/wmi.ko.zst
+kernel/drivers/acpi/acpi_tad.ko.zst:
+kernel/drivers/acpi/platform_profile.ko.zst:
+kernel/drivers/acpi/nfit/nfit.ko.zst:
+kernel/drivers/acpi/sbshc.ko.zst:
+kernel/drivers/acpi/sbs.ko.zst: kernel/drivers/acpi/sbshc.ko.zst
+kernel/drivers/acpi/ec_sys.ko.zst:
+kernel/drivers/acpi/pfr_update.ko.zst:
+kernel/drivers/acpi/pfr_telemetry.ko.zst:
+kernel/drivers/acpi/acpi_pad.ko.zst:
+kernel/drivers/acpi/acpi_extlog.ko.zst:
+kernel/drivers/acpi/acpi_configfs.ko.zst:
+kernel/drivers/virtio/virtio_input.ko.zst:
+kernel/drivers/virtio/virtio_vdpa.ko.zst: kernel/drivers/vdpa/vdpa.ko.zst
+kernel/drivers/virtio/virtio_mem.ko.zst:
+kernel/drivers/virtio/virtio_dma_buf.ko.zst:
+kernel/drivers/xen/xen-pciback/xen-pciback.ko.zst:
+kernel/drivers/xen/xen-evtchn.ko.zst:
+kernel/drivers/xen/xen-gntdev.ko.zst:
+kernel/drivers/xen/xen-gntalloc.ko.zst:
+kernel/drivers/xen/xenfs/xenfs.ko.zst: kernel/drivers/xen/xen-privcmd.ko.zst
+kernel/drivers/xen/xen-privcmd.ko.zst:
+kernel/drivers/xen/xen-scsiback.ko.zst: kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/xen/pvcalls-front.ko.zst:
+kernel/drivers/xen/xen-front-pgdir-shbuf.ko.zst:
+kernel/drivers/regulator/fixed.ko.zst:
+kernel/drivers/tty/serial/jsm/jsm.ko.zst:
+kernel/drivers/char/hw_random/virtio-rng.ko.zst:
+kernel/drivers/char/lp.ko.zst: kernel/drivers/parport/parport.ko.zst
+kernel/drivers/char/nvram.ko.zst:
+kernel/drivers/char/ppdev.ko.zst: kernel/drivers/parport/parport.ko.zst
+kernel/drivers/char/hangcheck-timer.ko.zst:
+kernel/drivers/iommu/iommufd/iommufd.ko.zst:
+kernel/drivers/block/floppy.ko.zst:
+kernel/drivers/block/brd.ko.zst:
+kernel/drivers/block/nbd.ko.zst:
+kernel/drivers/block/rbd.ko.zst: kernel/net/ceph/libceph.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/misc/eeprom/at24.ko.zst:
+kernel/drivers/misc/vmw_balloon.ko.zst: kernel/drivers/misc/vmw_vmci/vmw_vmci.ko.zst
+kernel/drivers/misc/vmw_vmci/vmw_vmci.ko.zst:
+kernel/drivers/mfd/sm501.ko.zst:
+kernel/drivers/scsi/device_handler/scsi_dh_rdac.ko.zst:
+kernel/drivers/scsi/device_handler/scsi_dh_hp_sw.ko.zst:
+kernel/drivers/scsi/device_handler/scsi_dh_emc.ko.zst:
+kernel/drivers/scsi/device_handler/scsi_dh_alua.ko.zst:
+kernel/drivers/scsi/megaraid/megaraid_mm.ko.zst:
+kernel/drivers/scsi/megaraid/megaraid_mbox.ko.zst: kernel/drivers/scsi/megaraid/megaraid_mm.ko.zst
+kernel/drivers/scsi/megaraid/megaraid_sas.ko.zst:
+kernel/drivers/scsi/raid_class.ko.zst:
+kernel/drivers/scsi/scsi_transport_spi.ko.zst:
+kernel/drivers/scsi/scsi_transport_fc.ko.zst:
+kernel/drivers/scsi/scsi_transport_iscsi.ko.zst:
+kernel/drivers/scsi/scsi_transport_sas.ko.zst:
+kernel/drivers/scsi/libsas/libsas.ko.zst: kernel/drivers/scsi/scsi_transport_sas.ko.zst
+kernel/drivers/scsi/libiscsi.ko.zst: kernel/drivers/scsi/scsi_transport_iscsi.ko.zst
+kernel/drivers/scsi/libiscsi_tcp.ko.zst: kernel/drivers/scsi/libiscsi.ko.zst kernel/drivers/scsi/scsi_transport_iscsi.ko.zst
+kernel/drivers/scsi/iscsi_tcp.ko.zst: kernel/drivers/scsi/libiscsi_tcp.ko.zst kernel/drivers/scsi/libiscsi.ko.zst kernel/drivers/scsi/scsi_transport_iscsi.ko.zst
+kernel/drivers/scsi/iscsi_boot_sysfs.ko.zst:
+kernel/drivers/scsi/BusLogic.ko.zst:
+kernel/drivers/scsi/aacraid/aacraid.ko.zst:
+kernel/drivers/scsi/qla1280.ko.zst:
+kernel/drivers/scsi/qla2xxx/qla2xxx.ko.zst: kernel/drivers/nvme/host/nvme-fc.ko.zst kernel/drivers/nvme/host/nvme-fabrics.ko.zst kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst kernel/drivers/scsi/scsi_transport_fc.ko.zst
+kernel/drivers/scsi/qla2xxx/tcm_qla2xxx.ko.zst: kernel/drivers/scsi/qla2xxx/qla2xxx.ko.zst kernel/drivers/nvme/host/nvme-fc.ko.zst kernel/drivers/nvme/host/nvme-fabrics.ko.zst kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst kernel/drivers/scsi/scsi_transport_fc.ko.zst kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/scsi/lpfc/lpfc.ko.zst: kernel/drivers/nvme/target/nvmet-fc.ko.zst kernel/drivers/nvme/target/nvmet.ko.zst kernel/drivers/nvme/common/nvme-keyring.ko.zst kernel/drivers/nvme/host/nvme-fc.ko.zst kernel/drivers/nvme/host/nvme-fabrics.ko.zst kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst kernel/drivers/scsi/scsi_transport_fc.ko.zst
+kernel/drivers/scsi/mpt3sas/mpt3sas.ko.zst: kernel/drivers/scsi/raid_class.ko.zst kernel/drivers/scsi/scsi_transport_sas.ko.zst
+kernel/drivers/scsi/ipr.ko.zst:
+kernel/drivers/scsi/vmw_pvscsi.ko.zst:
+kernel/drivers/scsi/hv_storvsc.ko.zst: kernel/drivers/scsi/scsi_transport_fc.ko.zst kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/drivers/nvme/common/nvme-auth.ko.zst:
+kernel/drivers/nvme/common/nvme-keyring.ko.zst:
+kernel/drivers/nvme/host/nvme-core.ko.zst: kernel/drivers/nvme/common/nvme-auth.ko.zst
+kernel/drivers/nvme/host/nvme.ko.zst: kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst
+kernel/drivers/nvme/host/nvme-fabrics.ko.zst: kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst
+kernel/drivers/nvme/host/nvme-fc.ko.zst: kernel/drivers/nvme/host/nvme-fabrics.ko.zst kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst
+kernel/drivers/nvme/target/nvmet.ko.zst: kernel/drivers/nvme/common/nvme-keyring.ko.zst kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst
+kernel/drivers/nvme/target/nvmet-fc.ko.zst: kernel/drivers/nvme/target/nvmet.ko.zst kernel/drivers/nvme/common/nvme-keyring.ko.zst kernel/drivers/nvme/host/nvme-core.ko.zst kernel/drivers/nvme/common/nvme-auth.ko.zst
+kernel/drivers/ata/ahci.ko.zst: kernel/drivers/ata/libahci.ko.zst
+kernel/drivers/ata/libahci.ko.zst:
+kernel/drivers/ata/acard-ahci.ko.zst: kernel/drivers/ata/libahci.ko.zst
+kernel/drivers/ata/ahci_platform.ko.zst: kernel/drivers/ata/libahci_platform.ko.zst kernel/drivers/ata/libahci.ko.zst
+kernel/drivers/ata/libahci_platform.ko.zst: kernel/drivers/ata/libahci.ko.zst
+kernel/drivers/gpu/drm/xen/drm_xen_front.ko.zst: kernel/drivers/xen/xen-front-pgdir-shbuf.ko.zst
+kernel/drivers/gpu/drm/drm_vram_helper.ko.zst: kernel/drivers/gpu/drm/drm_ttm_helper.ko.zst kernel/drivers/gpu/drm/ttm/ttm.ko.zst
+kernel/drivers/gpu/drm/drm_ttm_helper.ko.zst: kernel/drivers/gpu/drm/ttm/ttm.ko.zst
+kernel/drivers/gpu/drm/ttm/ttm.ko.zst:
+kernel/drivers/gpu/drm/vmwgfx/vmwgfx.ko.zst: kernel/drivers/gpu/drm/drm_ttm_helper.ko.zst kernel/drivers/gpu/drm/ttm/ttm.ko.zst
+kernel/drivers/gpu/drm/ast/ast.ko.zst: kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/gpu/drm/virtio/virtio-gpu.ko.zst: kernel/drivers/virtio/virtio_dma_buf.ko.zst
+kernel/drivers/gpu/drm/vboxvideo/vboxvideo.ko.zst: kernel/drivers/gpu/drm/drm_vram_helper.ko.zst kernel/drivers/gpu/drm/drm_ttm_helper.ko.zst kernel/drivers/gpu/drm/ttm/ttm.ko.zst
+kernel/drivers/net/phy/phylink.ko.zst:
+kernel/drivers/net/phy/marvell.ko.zst:
+kernel/drivers/net/pcs/pcs_xpcs.ko.zst: kernel/drivers/net/phy/phylink.ko.zst
+kernel/drivers/net/ethernet/8390/ne2k-pci.ko.zst: kernel/drivers/net/ethernet/8390/8390.ko.zst
+kernel/drivers/net/ethernet/8390/8390.ko.zst:
+kernel/drivers/net/ethernet/amazon/ena/ena.ko.zst:
+kernel/drivers/net/ethernet/amd/pcnet32.ko.zst: kernel/drivers/net/mii.ko.zst
+kernel/drivers/net/ethernet/amd/pds_core/pds_core.ko.zst:
+kernel/drivers/net/ethernet/broadcom/bnx2x/bnx2x.ko.zst: kernel/drivers/net/mdio.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/net/ethernet/broadcom/tg3.ko.zst:
+kernel/drivers/net/ethernet/dec/tulip/xircom_cb.ko.zst:
+kernel/drivers/net/ethernet/dec/tulip/dmfe.ko.zst:
+kernel/drivers/net/ethernet/dec/tulip/winbond-840.ko.zst: kernel/drivers/net/mii.ko.zst
+kernel/drivers/net/ethernet/dec/tulip/de2104x.ko.zst:
+kernel/drivers/net/ethernet/dec/tulip/tulip.ko.zst:
+kernel/drivers/net/ethernet/dec/tulip/uli526x.ko.zst:
+kernel/drivers/net/ethernet/emulex/benet/be2net.ko.zst:
+kernel/drivers/net/ethernet/intel/e1000/e1000.ko.zst:
+kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko.zst:
+kernel/drivers/net/ethernet/intel/igb/igb.ko.zst: kernel/drivers/dca/dca.ko.zst kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst
+kernel/drivers/net/ethernet/intel/igbvf/igbvf.ko.zst:
+kernel/drivers/net/ethernet/intel/ixgbe/ixgbe.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst kernel/drivers/dca/dca.ko.zst kernel/drivers/net/mdio.ko.zst
+kernel/drivers/net/ethernet/intel/ixgbevf/ixgbevf.ko.zst:
+kernel/drivers/net/ethernet/intel/i40e/i40e.ko.zst:
+kernel/drivers/net/ethernet/intel/iavf/iavf.ko.zst:
+kernel/drivers/net/ethernet/mellanox/mlx4/mlx4_core.ko.zst:
+kernel/drivers/net/ethernet/mellanox/mlx4/mlx4_en.ko.zst: kernel/drivers/net/ethernet/mellanox/mlx4/mlx4_core.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.ko.zst: kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst kernel/net/tls/tls.ko.zst kernel/drivers/pci/controller/pci-hyperv-intf.ko.zst kernel/net/psample/psample.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlx5/core/mlx5_dpll.ko.zst: kernel/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.ko.zst kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst kernel/net/tls/tls.ko.zst kernel/drivers/pci/controller/pci-hyperv-intf.ko.zst kernel/net/psample/psample.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_core.ko.zst: kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_pci.ko.zst: kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_core.ko.zst kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_i2c.ko.zst: kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_core.ko.zst kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_spectrum.ko.zst: kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_pci.ko.zst kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_core.ko.zst kernel/drivers/net/vxlan/vxlan.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst kernel/net/ipv6/ip6_tunnel.ko.zst kernel/net/ipv6/tunnel6.ko.zst kernel/lib/objagg.ko.zst kernel/lib/parman.ko.zst kernel/net/bridge/bridge.ko.zst kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst kernel/net/psample/psample.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_minimal.ko.zst: kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_i2c.ko.zst kernel/drivers/net/ethernet/mellanox/mlxsw/mlxsw_core.ko.zst kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst
+kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst:
+kernel/drivers/net/ethernet/netronome/nfp/nfp.ko.zst: kernel/net/tls/tls.ko.zst
+kernel/drivers/net/ethernet/realtek/8139cp.ko.zst: kernel/drivers/net/mii.ko.zst
+kernel/drivers/net/ethernet/realtek/8139too.ko.zst: kernel/drivers/net/mii.ko.zst
+kernel/drivers/net/ethernet/stmicro/stmmac/stmmac.ko.zst: kernel/drivers/net/pcs/pcs_xpcs.ko.zst kernel/drivers/net/phy/phylink.ko.zst
+kernel/drivers/net/ethernet/stmicro/stmmac/stmmac-platform.ko.zst: kernel/drivers/net/ethernet/stmicro/stmmac/stmmac.ko.zst kernel/drivers/net/pcs/pcs_xpcs.ko.zst kernel/drivers/net/phy/phylink.ko.zst
+kernel/drivers/net/fddi/defxx.ko.zst:
+kernel/drivers/net/fddi/skfp/skfp.ko.zst:
+kernel/drivers/net/ppp/ppp_async.ko.zst:
+kernel/drivers/net/ppp/bsd_comp.ko.zst:
+kernel/drivers/net/ppp/ppp_deflate.ko.zst:
+kernel/drivers/net/ppp/ppp_mppe.ko.zst: kernel/lib/crypto/libarc4.ko.zst
+kernel/drivers/net/ppp/ppp_synctty.ko.zst:
+kernel/drivers/net/ppp/pppox.ko.zst:
+kernel/drivers/net/ppp/pppoe.ko.zst: kernel/drivers/net/ppp/pppox.ko.zst
+kernel/drivers/net/ppp/pptp.ko.zst: kernel/net/ipv4/gre.ko.zst kernel/drivers/net/ppp/pppox.ko.zst
+kernel/drivers/net/slip/slip.ko.zst:
+kernel/drivers/net/bonding/bonding.ko.zst: kernel/net/tls/tls.ko.zst
+kernel/drivers/net/ipvlan/ipvlan.ko.zst:
+kernel/drivers/net/ipvlan/ipvtap.ko.zst: kernel/drivers/net/ipvlan/ipvlan.ko.zst kernel/drivers/net/tap.ko.zst
+kernel/drivers/net/dummy.ko.zst:
+kernel/drivers/net/wireguard/wireguard.ko.zst: kernel/arch/x86/crypto/curve25519-x86_64.ko.zst kernel/lib/crypto/libchacha20poly1305.ko.zst kernel/arch/x86/crypto/chacha-x86_64.ko.zst kernel/arch/x86/crypto/poly1305-x86_64.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst kernel/lib/crypto/libcurve25519-generic.ko.zst kernel/lib/crypto/libchacha.ko.zst
+kernel/drivers/net/eql.ko.zst:
+kernel/drivers/net/ifb.ko.zst:
+kernel/drivers/net/macvlan.ko.zst:
+kernel/drivers/net/macvtap.ko.zst: kernel/drivers/net/macvlan.ko.zst kernel/drivers/net/tap.ko.zst
+kernel/drivers/net/mii.ko.zst:
+kernel/drivers/net/mdio.ko.zst:
+kernel/drivers/net/netconsole.ko.zst:
+kernel/drivers/net/tap.ko.zst:
+kernel/drivers/net/veth.ko.zst:
+kernel/drivers/net/vxlan/vxlan.ko.zst: kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst
+kernel/drivers/net/geneve.ko.zst: kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst
+kernel/drivers/net/caif/caif_virtio.ko.zst: kernel/drivers/vhost/vringh.ko.zst kernel/drivers/vhost/vhost_iotlb.ko.zst
+kernel/drivers/net/wwan/wwan.ko.zst:
+kernel/drivers/net/wwan/wwan_hwsim.ko.zst: kernel/drivers/net/wwan/wwan.ko.zst
+kernel/drivers/net/wwan/mhi_wwan_ctrl.ko.zst: kernel/drivers/bus/mhi/host/mhi.ko.zst kernel/drivers/net/wwan/wwan.ko.zst
+kernel/drivers/net/wwan/mhi_wwan_mbim.ko.zst: kernel/drivers/bus/mhi/host/mhi.ko.zst kernel/drivers/net/wwan/wwan.ko.zst
+kernel/drivers/net/wwan/rpmsg_wwan_ctrl.ko.zst: kernel/drivers/rpmsg/rpmsg_core.ko.zst kernel/drivers/net/wwan/wwan.ko.zst
+kernel/drivers/net/wwan/iosm/iosm.ko.zst: kernel/drivers/net/wwan/wwan.ko.zst
+kernel/drivers/net/wwan/t7xx/mtk_t7xx.ko.zst: kernel/drivers/net/wwan/wwan.ko.zst
+kernel/drivers/net/vmxnet3/vmxnet3.ko.zst:
+kernel/drivers/net/xen-netback/xen-netback.ko.zst:
+kernel/drivers/net/hyperv/hv_netvsc.ko.zst: kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/drivers/message/fusion/mptbase.ko.zst:
+kernel/drivers/message/fusion/mptscsih.ko.zst: kernel/drivers/message/fusion/mptbase.ko.zst
+kernel/drivers/message/fusion/mptspi.ko.zst: kernel/drivers/scsi/scsi_transport_spi.ko.zst kernel/drivers/message/fusion/mptscsih.ko.zst kernel/drivers/message/fusion/mptbase.ko.zst
+kernel/drivers/message/fusion/mptfc.ko.zst: kernel/drivers/message/fusion/mptscsih.ko.zst kernel/drivers/message/fusion/mptbase.ko.zst kernel/drivers/scsi/scsi_transport_fc.ko.zst
+kernel/drivers/message/fusion/mptsas.ko.zst: kernel/drivers/message/fusion/mptscsih.ko.zst kernel/drivers/message/fusion/mptbase.ko.zst kernel/drivers/scsi/scsi_transport_sas.ko.zst
+kernel/drivers/message/fusion/mptctl.ko.zst: kernel/drivers/message/fusion/mptbase.ko.zst
+kernel/drivers/message/fusion/mptlan.ko.zst: kernel/drivers/message/fusion/mptbase.ko.zst
+kernel/drivers/usb/host/oxu210hp-hcd.ko.zst:
+kernel/drivers/usb/host/isp116x-hcd.ko.zst:
+kernel/drivers/usb/host/xhci-pci.ko.zst: kernel/drivers/usb/host/xhci-pci-renesas.ko.zst
+kernel/drivers/usb/host/xhci-pci-renesas.ko.zst:
+kernel/drivers/usb/host/xhci-plat-hcd.ko.zst:
+kernel/drivers/usb/host/sl811-hcd.ko.zst:
+kernel/drivers/usb/host/sl811_cs.ko.zst: kernel/drivers/usb/host/sl811-hcd.ko.zst kernel/drivers/pcmcia/pcmcia.ko.zst kernel/drivers/pcmcia/pcmcia_core.ko.zst
+kernel/drivers/usb/host/r8a66597-hcd.ko.zst:
+kernel/drivers/usb/host/fsl-mph-dr-of.ko.zst:
+kernel/drivers/usb/host/ehci-fsl.ko.zst:
+kernel/drivers/usb/host/bcma-hcd.ko.zst: kernel/drivers/bcma/bcma.ko.zst
+kernel/drivers/usb/host/ssb-hcd.ko.zst: kernel/drivers/ssb/ssb.ko.zst
+kernel/drivers/usb/host/max3421-hcd.ko.zst:
+kernel/drivers/usb/host/xen-hcd.ko.zst:
+kernel/drivers/usb/storage/uas.ko.zst: kernel/drivers/usb/storage/usb-storage.ko.zst
+kernel/drivers/usb/storage/usb-storage.ko.zst:
+kernel/drivers/input/serio/serport.ko.zst:
+kernel/drivers/input/serio/serio_raw.ko.zst:
+kernel/drivers/input/serio/hyperv-keyboard.ko.zst: kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/drivers/input/keyboard/gpio_keys.ko.zst:
+kernel/drivers/input/mouse/psmouse.ko.zst:
+kernel/drivers/input/touchscreen/usbtouchscreen.ko.zst:
+kernel/drivers/input/misc/xen-kbdfront.ko.zst:
+kernel/drivers/input/input-leds.ko.zst:
+kernel/drivers/input/joydev.ko.zst:
+kernel/drivers/input/evbug.ko.zst:
+kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst:
+kernel/drivers/watchdog/softdog.ko.zst:
+kernel/drivers/md/raid0.ko.zst:
+kernel/drivers/md/raid1.ko.zst:
+kernel/drivers/md/raid10.ko.zst:
+kernel/drivers/md/raid456.ko.zst: kernel/crypto/async_tx/async_raid6_recov.ko.zst kernel/crypto/async_tx/async_memcpy.ko.zst kernel/crypto/async_tx/async_pq.ko.zst kernel/crypto/async_tx/async_xor.ko.zst kernel/crypto/async_tx/async_tx.ko.zst kernel/crypto/xor.ko.zst kernel/lib/raid6/raid6_pq.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/md-cluster.ko.zst: kernel/fs/dlm/dlm.ko.zst
+kernel/drivers/md/bcache/bcache.ko.zst:
+kernel/drivers/md/dm-unstripe.ko.zst:
+kernel/drivers/md/dm-bufio.ko.zst:
+kernel/drivers/md/dm-bio-prison.ko.zst:
+kernel/drivers/md/dm-crypt.ko.zst:
+kernel/drivers/md/dm-delay.ko.zst:
+kernel/drivers/md/dm-flakey.ko.zst:
+kernel/drivers/md/dm-multipath.ko.zst:
+kernel/drivers/md/dm-round-robin.ko.zst: kernel/drivers/md/dm-multipath.ko.zst
+kernel/drivers/md/dm-queue-length.ko.zst: kernel/drivers/md/dm-multipath.ko.zst
+kernel/drivers/md/dm-service-time.ko.zst: kernel/drivers/md/dm-multipath.ko.zst
+kernel/drivers/md/dm-historical-service-time.ko.zst: kernel/drivers/md/dm-multipath.ko.zst
+kernel/drivers/md/dm-io-affinity.ko.zst: kernel/drivers/md/dm-multipath.ko.zst
+kernel/drivers/md/dm-switch.ko.zst:
+kernel/drivers/md/dm-snapshot.ko.zst: kernel/drivers/md/dm-bufio.ko.zst
+kernel/drivers/md/persistent-data/dm-persistent-data.ko.zst: kernel/drivers/md/dm-bufio.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/dm-mirror.ko.zst: kernel/drivers/md/dm-region-hash.ko.zst kernel/drivers/md/dm-log.ko.zst
+kernel/drivers/md/dm-log.ko.zst:
+kernel/drivers/md/dm-region-hash.ko.zst: kernel/drivers/md/dm-log.ko.zst
+kernel/drivers/md/dm-log-userspace.ko.zst: kernel/drivers/md/dm-log.ko.zst
+kernel/drivers/md/dm-zero.ko.zst:
+kernel/drivers/md/dm-raid.ko.zst: kernel/drivers/md/raid456.ko.zst kernel/crypto/async_tx/async_raid6_recov.ko.zst kernel/crypto/async_tx/async_memcpy.ko.zst kernel/crypto/async_tx/async_pq.ko.zst kernel/crypto/async_tx/async_xor.ko.zst kernel/crypto/async_tx/async_tx.ko.zst kernel/crypto/xor.ko.zst kernel/lib/raid6/raid6_pq.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/dm-thin-pool.ko.zst: kernel/drivers/md/persistent-data/dm-persistent-data.ko.zst kernel/drivers/md/dm-bio-prison.ko.zst kernel/drivers/md/dm-bufio.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/dm-verity.ko.zst: kernel/drivers/md/dm-bufio.ko.zst
+kernel/drivers/md/dm-cache.ko.zst: kernel/drivers/md/persistent-data/dm-persistent-data.ko.zst kernel/drivers/md/dm-bio-prison.ko.zst kernel/drivers/md/dm-bufio.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/dm-cache-smq.ko.zst: kernel/drivers/md/dm-cache.ko.zst kernel/drivers/md/persistent-data/dm-persistent-data.ko.zst kernel/drivers/md/dm-bio-prison.ko.zst kernel/drivers/md/dm-bufio.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/dm-ebs.ko.zst: kernel/drivers/md/dm-bufio.ko.zst
+kernel/drivers/md/dm-era.ko.zst: kernel/drivers/md/persistent-data/dm-persistent-data.ko.zst kernel/drivers/md/dm-bufio.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/dm-clone.ko.zst: kernel/drivers/md/persistent-data/dm-persistent-data.ko.zst kernel/drivers/md/dm-bufio.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/drivers/md/dm-log-writes.ko.zst:
+kernel/drivers/md/dm-integrity.ko.zst: kernel/crypto/async_tx/async_xor.ko.zst kernel/crypto/async_tx/async_tx.ko.zst kernel/drivers/md/dm-bufio.ko.zst kernel/crypto/xor.ko.zst
+kernel/drivers/md/dm-zoned.ko.zst:
+kernel/drivers/md/dm-writecache.ko.zst:
+kernel/drivers/leds/trigger/ledtrig-audio.ko.zst:
+kernel/drivers/firmware/efi/efi-pstore.ko.zst:
+kernel/drivers/firmware/efi/efibc.ko.zst:
+kernel/drivers/firmware/efi/test/efi_test.ko.zst:
+kernel/drivers/firmware/efi/capsule-loader.ko.zst:
+kernel/drivers/firmware/dmi-sysfs.ko.zst:
+kernel/drivers/firmware/iscsi_ibft.ko.zst: kernel/drivers/scsi/iscsi_boot_sysfs.ko.zst
+kernel/drivers/crypto/ccp/ccp.ko.zst:
+kernel/drivers/hid/hid.ko.zst:
+kernel/drivers/hid/hid-generic.ko.zst: kernel/drivers/hid/hid.ko.zst
+kernel/drivers/hid/hid-hyperv.ko.zst: kernel/drivers/hid/hid.ko.zst kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/drivers/hid/usbhid/usbhid.ko.zst: kernel/drivers/hid/hid.ko.zst
+kernel/drivers/platform/x86/wmi.ko.zst:
+kernel/drivers/virt/vboxguest/vboxguest.ko.zst:
+kernel/drivers/hv/hv_vmbus.ko.zst:
+kernel/drivers/hv/hv_utils.ko.zst: kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/drivers/hv/hv_balloon.ko.zst: kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/drivers/vdpa/vdpa.ko.zst:
+kernel/drivers/parport/parport.ko.zst:
+kernel/drivers/parport/parport_pc.ko.zst: kernel/drivers/parport/parport.ko.zst
+kernel/drivers/target/target_core_mod.ko.zst:
+kernel/drivers/target/target_core_iblock.ko.zst: kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/target/target_core_file.ko.zst: kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/target/target_core_pscsi.ko.zst: kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/target/target_core_user.ko.zst: kernel/drivers/uio/uio.ko.zst kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/target/loopback/tcm_loop.ko.zst: kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/target/iscsi/iscsi_target_mod.ko.zst: kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/uio/uio.ko.zst:
+kernel/drivers/uio/uio_pdrv_genirq.ko.zst: kernel/drivers/uio/uio.ko.zst
+kernel/drivers/vfio/vfio.ko.zst: kernel/drivers/iommu/iommufd/iommufd.ko.zst
+kernel/drivers/vfio/vfio_iommu_type1.ko.zst: kernel/drivers/vfio/vfio.ko.zst kernel/drivers/iommu/iommufd/iommufd.ko.zst
+kernel/drivers/vfio/pci/vfio-pci-core.ko.zst: kernel/drivers/vfio/vfio.ko.zst kernel/drivers/iommu/iommufd/iommufd.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/drivers/vfio/pci/vfio-pci.ko.zst: kernel/drivers/vfio/pci/vfio-pci-core.ko.zst kernel/drivers/vfio/vfio.ko.zst kernel/drivers/iommu/iommufd/iommufd.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/drivers/vfio/pci/mlx5/mlx5-vfio-pci.ko.zst: kernel/drivers/vfio/pci/vfio-pci-core.ko.zst kernel/drivers/vfio/vfio.ko.zst kernel/drivers/iommu/iommufd/iommufd.ko.zst kernel/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.ko.zst kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.ko.zst kernel/net/tls/tls.ko.zst kernel/drivers/pci/controller/pci-hyperv-intf.ko.zst kernel/net/psample/psample.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/drivers/vfio/pci/pds/pds-vfio-pci.ko.zst: kernel/drivers/net/ethernet/amd/pds_core/pds_core.ko.zst kernel/drivers/vfio/pci/vfio-pci-core.ko.zst kernel/drivers/vfio/vfio.ko.zst kernel/drivers/iommu/iommufd/iommufd.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/drivers/vfio/pci/virtio/virtio-vfio-pci.ko.zst: kernel/drivers/vfio/pci/vfio-pci-core.ko.zst kernel/drivers/vfio/vfio.ko.zst kernel/drivers/iommu/iommufd/iommufd.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/drivers/vfio/mdev/mdev.ko.zst:
+kernel/drivers/pcmcia/pcmcia_core.ko.zst:
+kernel/drivers/pcmcia/pcmcia.ko.zst: kernel/drivers/pcmcia/pcmcia_core.ko.zst
+kernel/drivers/input/gameport/gameport.ko.zst:
+kernel/drivers/infiniband/core/ib_core.ko.zst:
+kernel/drivers/infiniband/core/ib_cm.ko.zst: kernel/drivers/infiniband/core/ib_core.ko.zst
+kernel/drivers/infiniband/core/iw_cm.ko.zst: kernel/drivers/infiniband/core/ib_core.ko.zst
+kernel/drivers/infiniband/core/rdma_cm.ko.zst: kernel/drivers/infiniband/core/iw_cm.ko.zst kernel/drivers/infiniband/core/ib_cm.ko.zst kernel/drivers/infiniband/core/ib_core.ko.zst
+kernel/drivers/infiniband/ulp/iser/ib_iser.ko.zst: kernel/drivers/infiniband/core/rdma_cm.ko.zst kernel/drivers/infiniband/core/iw_cm.ko.zst kernel/drivers/infiniband/core/ib_cm.ko.zst kernel/drivers/infiniband/core/ib_core.ko.zst kernel/drivers/scsi/libiscsi.ko.zst kernel/drivers/scsi/scsi_transport_iscsi.ko.zst
+kernel/drivers/infiniband/ulp/isert/ib_isert.ko.zst: kernel/drivers/target/iscsi/iscsi_target_mod.ko.zst kernel/drivers/infiniband/core/rdma_cm.ko.zst kernel/drivers/infiniband/core/iw_cm.ko.zst kernel/drivers/infiniband/core/ib_cm.ko.zst kernel/drivers/infiniband/core/ib_core.ko.zst kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/dca/dca.ko.zst:
+kernel/drivers/ssb/ssb.ko.zst:
+kernel/drivers/bcma/bcma.ko.zst:
+kernel/drivers/vhost/vhost_net.ko.zst: kernel/drivers/vhost/vhost.ko.zst kernel/drivers/vhost/vhost_iotlb.ko.zst kernel/drivers/net/tap.ko.zst
+kernel/drivers/vhost/vhost_scsi.ko.zst: kernel/drivers/vhost/vhost.ko.zst kernel/drivers/vhost/vhost_iotlb.ko.zst kernel/drivers/target/target_core_mod.ko.zst
+kernel/drivers/vhost/vhost_vsock.ko.zst: kernel/net/vmw_vsock/vmw_vsock_virtio_transport_common.ko.zst kernel/net/vmw_vsock/vsock.ko.zst kernel/drivers/vhost/vhost.ko.zst kernel/drivers/vhost/vhost_iotlb.ko.zst
+kernel/drivers/vhost/vringh.ko.zst: kernel/drivers/vhost/vhost_iotlb.ko.zst
+kernel/drivers/vhost/vhost_vdpa.ko.zst: kernel/drivers/vhost/vhost.ko.zst kernel/drivers/vhost/vhost_iotlb.ko.zst kernel/drivers/vdpa/vdpa.ko.zst kernel/virt/lib/irqbypass.ko.zst
+kernel/drivers/vhost/vhost.ko.zst: kernel/drivers/vhost/vhost_iotlb.ko.zst
+kernel/drivers/vhost/vhost_iotlb.ko.zst:
+kernel/drivers/rpmsg/rpmsg_core.ko.zst:
+kernel/sound/soundcore.ko.zst:
+kernel/sound/core/snd.ko.zst: kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-ctl-led.ko.zst: kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst kernel/drivers/leds/trigger/ledtrig-audio.ko.zst
+kernel/sound/core/snd-hwdep.ko.zst: kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-timer.ko.zst: kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-hrtimer.ko.zst: kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-pcm.ko.zst: kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-pcm-dmaengine.ko.zst: kernel/sound/core/snd-pcm.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-seq-device.ko.zst: kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-rawmidi.ko.zst: kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-ump.ko.zst: kernel/sound/core/snd-rawmidi.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/seq/snd-seq.ko.zst: kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/seq/snd-seq-dummy.ko.zst: kernel/sound/core/seq/snd-seq.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/seq/snd-seq-midi.ko.zst: kernel/sound/core/seq/snd-seq-midi-event.ko.zst kernel/sound/core/seq/snd-seq.ko.zst kernel/sound/core/snd-rawmidi.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/seq/snd-seq-ump-client.ko.zst: kernel/sound/core/seq/snd-seq.ko.zst kernel/sound/core/snd-rawmidi.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/seq/snd-seq-midi-emul.ko.zst: kernel/sound/core/seq/snd-seq.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/seq/snd-seq-midi-event.ko.zst: kernel/sound/core/seq/snd-seq.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/seq/snd-seq-virmidi.ko.zst: kernel/sound/core/seq/snd-seq-midi-event.ko.zst kernel/sound/core/seq/snd-seq.ko.zst kernel/sound/core/snd-rawmidi.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/core/snd-compress.ko.zst: kernel/sound/core/snd-pcm.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/drivers/pcsp/snd-pcsp.ko.zst: kernel/sound/core/snd-pcm.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/sound/pci/snd-ens1370.ko.zst: kernel/drivers/input/gameport/gameport.ko.zst kernel/sound/core/snd-rawmidi.ko.zst kernel/sound/core/snd-seq-device.ko.zst kernel/sound/core/snd-pcm.ko.zst kernel/sound/core/snd-timer.ko.zst kernel/sound/core/snd.ko.zst kernel/sound/soundcore.ko.zst
+kernel/net/core/pktgen.ko.zst:
+kernel/net/802/p8022.ko.zst: kernel/net/llc/llc.ko.zst
+kernel/net/802/psnap.ko.zst: kernel/net/llc/llc.ko.zst
+kernel/net/802/stp.ko.zst: kernel/net/llc/llc.ko.zst
+kernel/net/802/garp.ko.zst: kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst
+kernel/net/802/mrp.ko.zst:
+kernel/net/sched/act_police.ko.zst:
+kernel/net/sched/act_gact.ko.zst:
+kernel/net/sched/act_mirred.ko.zst:
+kernel/net/sched/act_sample.ko.zst: kernel/net/psample/psample.ko.zst
+kernel/net/sched/act_nat.ko.zst:
+kernel/net/sched/act_pedit.ko.zst:
+kernel/net/sched/act_simple.ko.zst:
+kernel/net/sched/act_skbedit.ko.zst:
+kernel/net/sched/act_csum.ko.zst: kernel/lib/libcrc32c.ko.zst
+kernel/net/sched/act_mpls.ko.zst:
+kernel/net/sched/act_vlan.ko.zst:
+kernel/net/sched/act_bpf.ko.zst:
+kernel/net/sched/act_connmark.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/sched/act_ctinfo.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/sched/act_skbmod.ko.zst:
+kernel/net/sched/act_tunnel_key.ko.zst:
+kernel/net/sched/act_ct.ko.zst: kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_flow_table.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/sched/act_gate.ko.zst:
+kernel/net/sched/sch_htb.ko.zst:
+kernel/net/sched/sch_hfsc.ko.zst:
+kernel/net/sched/sch_red.ko.zst:
+kernel/net/sched/sch_gred.ko.zst:
+kernel/net/sched/sch_ingress.ko.zst:
+kernel/net/sched/sch_sfb.ko.zst:
+kernel/net/sched/sch_sfq.ko.zst:
+kernel/net/sched/sch_tbf.ko.zst:
+kernel/net/sched/sch_teql.ko.zst:
+kernel/net/sched/sch_prio.ko.zst:
+kernel/net/sched/sch_multiq.ko.zst:
+kernel/net/sched/sch_netem.ko.zst:
+kernel/net/sched/sch_drr.ko.zst:
+kernel/net/sched/sch_plug.ko.zst:
+kernel/net/sched/sch_ets.ko.zst:
+kernel/net/sched/sch_mqprio.ko.zst: kernel/net/sched/sch_mqprio_lib.ko.zst
+kernel/net/sched/sch_mqprio_lib.ko.zst:
+kernel/net/sched/sch_skbprio.ko.zst:
+kernel/net/sched/sch_choke.ko.zst:
+kernel/net/sched/sch_qfq.ko.zst:
+kernel/net/sched/sch_codel.ko.zst:
+kernel/net/sched/sch_fq_codel.ko.zst:
+kernel/net/sched/sch_cake.ko.zst:
+kernel/net/sched/sch_fq.ko.zst:
+kernel/net/sched/sch_hhf.ko.zst:
+kernel/net/sched/sch_pie.ko.zst:
+kernel/net/sched/sch_fq_pie.ko.zst: kernel/net/sched/sch_pie.ko.zst
+kernel/net/sched/sch_cbs.ko.zst:
+kernel/net/sched/sch_etf.ko.zst:
+kernel/net/sched/sch_taprio.ko.zst: kernel/net/sched/sch_mqprio_lib.ko.zst
+kernel/net/sched/cls_u32.ko.zst:
+kernel/net/sched/cls_route.ko.zst:
+kernel/net/sched/cls_fw.ko.zst:
+kernel/net/sched/cls_basic.ko.zst:
+kernel/net/sched/cls_flow.ko.zst:
+kernel/net/sched/cls_cgroup.ko.zst:
+kernel/net/sched/cls_bpf.ko.zst:
+kernel/net/sched/cls_flower.ko.zst:
+kernel/net/sched/cls_matchall.ko.zst:
+kernel/net/sched/em_cmp.ko.zst:
+kernel/net/sched/em_nbyte.ko.zst:
+kernel/net/sched/em_u32.ko.zst:
+kernel/net/sched/em_meta.ko.zst:
+kernel/net/sched/em_text.ko.zst:
+kernel/net/sched/em_canid.ko.zst:
+kernel/net/sched/em_ipset.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/sched/em_ipt.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netlink/netlink_diag.ko.zst:
+kernel/net/netfilter/nfnetlink.ko.zst:
+kernel/net/netfilter/nfnetlink_acct.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/nfnetlink_queue.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/nfnetlink_log.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/nfnetlink_osf.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/nfnetlink_hook.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/nf_conntrack.ko.zst: kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_netlink.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nfnetlink_cttimeout.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nfnetlink_cthelper.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_amanda.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_ftp.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_h323.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_irc.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_broadcast.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_netbios_ns.ko.zst: kernel/net/netfilter/nf_conntrack_broadcast.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_snmp.ko.zst: kernel/net/netfilter/nf_conntrack_broadcast.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_pptp.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_sane.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_sip.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conntrack_tftp.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_log_syslog.ko.zst:
+kernel/net/netfilter/nf_nat.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_nat_amanda.ko.zst: kernel/net/netfilter/nf_conntrack_amanda.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_nat_ftp.ko.zst: kernel/net/netfilter/nf_conntrack_ftp.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_nat_irc.ko.zst: kernel/net/netfilter/nf_conntrack_irc.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_nat_sip.ko.zst: kernel/net/netfilter/nf_conntrack_sip.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_nat_tftp.ko.zst: kernel/net/netfilter/nf_conntrack_tftp.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_synproxy_core.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_conncount.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_dup_netdev.ko.zst:
+kernel/net/netfilter/nf_tables.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_compat.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_connlimit.ko.zst: kernel/net/netfilter/nf_conncount.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_numgen.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_ct.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_flow_offload.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_flow_table.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_limit.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_nat.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_queue.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_quota.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_reject.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_reject_inet.ko.zst: kernel/net/ipv4/netfilter/nf_reject_ipv4.ko.zst kernel/net/ipv6/netfilter/nf_reject_ipv6.ko.zst kernel/net/netfilter/nft_reject.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_reject_netdev.ko.zst: kernel/net/ipv4/netfilter/nf_reject_ipv4.ko.zst kernel/net/ipv6/netfilter/nf_reject_ipv6.ko.zst kernel/net/netfilter/nft_reject.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_tunnel.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_log.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_masq.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_redir.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_hash.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_fib.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_fib_inet.ko.zst: kernel/net/ipv4/netfilter/nft_fib_ipv4.ko.zst kernel/net/ipv6/netfilter/nft_fib_ipv6.ko.zst kernel/net/netfilter/nft_fib.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_fib_netdev.ko.zst: kernel/net/ipv4/netfilter/nft_fib_ipv4.ko.zst kernel/net/ipv6/netfilter/nft_fib_ipv6.ko.zst kernel/net/netfilter/nft_fib.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_socket.ko.zst: kernel/net/ipv4/netfilter/nf_socket_ipv4.ko.zst kernel/net/ipv6/netfilter/nf_socket_ipv6.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_osf.ko.zst: kernel/net/netfilter/nfnetlink_osf.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_tproxy.ko.zst: kernel/net/ipv6/netfilter/nf_tproxy_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_tproxy_ipv4.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_xfrm.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_synproxy.ko.zst: kernel/net/netfilter/nf_synproxy_core.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_chain_nat.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_dup_netdev.ko.zst: kernel/net/netfilter/nf_dup_netdev.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nft_fwd_netdev.ko.zst: kernel/net/netfilter/nf_dup_netdev.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_flow_table.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/nf_flow_table_inet.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/netfilter/nf_flow_table.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/x_tables.ko.zst:
+kernel/net/netfilter/xt_tcpudp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_mark.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_connmark.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_set.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/xt_nat.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_AUDIT.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_CHECKSUM.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_CLASSIFY.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_CONNSECMARK.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_CT.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_DSCP.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_HL.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_HMARK.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_LED.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_LOG.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_NETMAP.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_NFLOG.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_NFQUEUE.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_RATEEST.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_REDIRECT.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_MASQUERADE.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_SECMARK.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_TPROXY.ko.zst: kernel/net/ipv6/netfilter/nf_tproxy_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_tproxy_ipv4.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst
+kernel/net/netfilter/xt_TCPMSS.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_TCPOPTSTRIP.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_TEE.ko.zst: kernel/net/ipv6/netfilter/nf_dup_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_dup_ipv4.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_TRACE.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_IDLETIMER.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_addrtype.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_bpf.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_cluster.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_comment.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_connbytes.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_connlabel.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_connlimit.ko.zst: kernel/net/netfilter/nf_conncount.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_conntrack.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_cpu.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_dccp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_devgroup.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_dscp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_ecn.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_esp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_hashlimit.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_helper.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_hl.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_ipcomp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_iprange.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_ipvs.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_l2tp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_length.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_limit.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_mac.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_multiport.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_nfacct.ko.zst: kernel/net/netfilter/nfnetlink_acct.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/xt_osf.ko.zst: kernel/net/netfilter/nfnetlink_osf.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/xt_owner.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_cgroup.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_physdev.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_pkttype.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_policy.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_quota.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_rateest.ko.zst: kernel/net/netfilter/xt_RATEEST.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_realm.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_recent.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_sctp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_socket.ko.zst: kernel/net/ipv4/netfilter/nf_socket_ipv4.ko.zst kernel/net/ipv6/netfilter/nf_socket_ipv6.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst
+kernel/net/netfilter/xt_state.ko.zst: kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/xt_statistic.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_string.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_tcpmss.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_time.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/xt_u32.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/netfilter/ipset/ip_set.ko.zst: kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_bitmap_ip.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_bitmap_ipmac.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_bitmap_port.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_ip.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_ipmac.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_ipmark.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_ipport.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_ipportip.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_ipportnet.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_mac.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_net.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_netport.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_netiface.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_netnet.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_hash_netportnet.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipset/ip_set_list_set.ko.zst: kernel/net/netfilter/ipset/ip_set.ko.zst kernel/net/netfilter/nfnetlink.ko.zst
+kernel/net/netfilter/ipvs/ip_vs.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_rr.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_wrr.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_lc.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_wlc.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_fo.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_ovf.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_lblc.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_lblcr.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_dh.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_sh.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_mh.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_sed.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_nq.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_twos.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_ftp.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/netfilter/ipvs/ip_vs_pe_sip.ko.zst: kernel/net/netfilter/ipvs/ip_vs.ko.zst kernel/net/netfilter/nf_conntrack_sip.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst:
+kernel/net/ipv4/netfilter/nf_socket_ipv4.ko.zst:
+kernel/net/ipv4/netfilter/nf_tproxy_ipv4.ko.zst:
+kernel/net/ipv4/netfilter/nf_reject_ipv4.ko.zst:
+kernel/net/ipv4/netfilter/nf_nat_h323.ko.zst: kernel/net/netfilter/nf_conntrack_h323.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/nf_nat_pptp.ko.zst: kernel/net/netfilter/nf_conntrack_pptp.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/nf_nat_snmp_basic.ko.zst: kernel/net/netfilter/nf_conntrack_snmp.ko.zst kernel/net/netfilter/nf_conntrack_broadcast.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/nft_reject_ipv4.ko.zst: kernel/net/ipv4/netfilter/nf_reject_ipv4.ko.zst kernel/net/netfilter/nft_reject.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/nft_fib_ipv4.ko.zst: kernel/net/netfilter/nft_fib.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/nft_dup_ipv4.ko.zst: kernel/net/ipv4/netfilter/nf_dup_ipv4.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/ip_tables.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/iptable_filter.ko.zst: kernel/net/ipv4/netfilter/ip_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/iptable_mangle.ko.zst: kernel/net/ipv4/netfilter/ip_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/iptable_nat.ko.zst: kernel/net/ipv4/netfilter/ip_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/iptable_raw.ko.zst: kernel/net/ipv4/netfilter/ip_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/iptable_security.ko.zst: kernel/net/ipv4/netfilter/ip_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/ipt_ah.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/ipt_rpfilter.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/ipt_ECN.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/ipt_REJECT.ko.zst: kernel/net/ipv4/netfilter/nf_reject_ipv4.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/ipt_SYNPROXY.ko.zst: kernel/net/netfilter/nf_synproxy_core.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv4/netfilter/arp_tables.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/arpt_mangle.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/arptable_filter.ko.zst: kernel/net/ipv4/netfilter/arp_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv4/netfilter/nf_dup_ipv4.ko.zst:
+kernel/net/ipv4/ip_tunnel.ko.zst:
+kernel/net/ipv4/ipip.ko.zst: kernel/net/ipv4/tunnel4.ko.zst kernel/net/ipv4/ip_tunnel.ko.zst
+kernel/net/ipv4/fou.ko.zst: kernel/net/ipv4/ip_tunnel.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst
+kernel/net/ipv4/gre.ko.zst:
+kernel/net/ipv4/ip_gre.ko.zst: kernel/net/ipv4/ip_tunnel.ko.zst kernel/net/ipv4/gre.ko.zst
+kernel/net/ipv4/udp_tunnel.ko.zst:
+kernel/net/ipv4/ip_vti.ko.zst: kernel/net/ipv4/tunnel4.ko.zst kernel/net/ipv4/ip_tunnel.ko.zst
+kernel/net/ipv4/ah4.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv4/esp4.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv4/esp4_offload.ko.zst: kernel/net/ipv4/esp4.ko.zst kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv4/ipcomp.ko.zst: kernel/net/xfrm/xfrm_ipcomp.ko.zst kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv4/xfrm4_tunnel.ko.zst: kernel/net/ipv4/tunnel4.ko.zst
+kernel/net/ipv4/tunnel4.ko.zst:
+kernel/net/ipv4/inet_diag.ko.zst:
+kernel/net/ipv4/tcp_diag.ko.zst: kernel/net/ipv4/inet_diag.ko.zst
+kernel/net/ipv4/udp_diag.ko.zst: kernel/net/ipv4/inet_diag.ko.zst
+kernel/net/ipv4/raw_diag.ko.zst: kernel/net/ipv4/inet_diag.ko.zst
+kernel/net/ipv4/tcp_bbr.ko.zst:
+kernel/net/ipv4/tcp_bic.ko.zst:
+kernel/net/ipv4/tcp_cdg.ko.zst:
+kernel/net/ipv4/tcp_dctcp.ko.zst:
+kernel/net/ipv4/tcp_westwood.ko.zst:
+kernel/net/ipv4/tcp_highspeed.ko.zst:
+kernel/net/ipv4/tcp_hybla.ko.zst:
+kernel/net/ipv4/tcp_htcp.ko.zst:
+kernel/net/ipv4/tcp_vegas.ko.zst:
+kernel/net/ipv4/tcp_nv.ko.zst:
+kernel/net/ipv4/tcp_veno.ko.zst:
+kernel/net/ipv4/tcp_scalable.ko.zst:
+kernel/net/ipv4/tcp_lp.ko.zst:
+kernel/net/ipv4/tcp_yeah.ko.zst: kernel/net/ipv4/tcp_vegas.ko.zst
+kernel/net/ipv4/tcp_illinois.ko.zst:
+kernel/net/xfrm/xfrm_algo.ko.zst:
+kernel/net/xfrm/xfrm_user.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/xfrm/xfrm_compat.ko.zst: kernel/net/xfrm/xfrm_user.ko.zst kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/xfrm/xfrm_ipcomp.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/xfrm/xfrm_interface.ko.zst: kernel/net/ipv6/xfrm6_tunnel.ko.zst kernel/net/ipv4/tunnel4.ko.zst kernel/net/ipv6/tunnel6.ko.zst
+kernel/net/unix/unix_diag.ko.zst:
+kernel/net/ipv6/netfilter/ip6_tables.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6table_filter.ko.zst: kernel/net/ipv6/netfilter/ip6_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6table_mangle.ko.zst: kernel/net/ipv6/netfilter/ip6_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6table_raw.ko.zst: kernel/net/ipv6/netfilter/ip6_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6table_security.ko.zst: kernel/net/ipv6/netfilter/ip6_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6table_nat.ko.zst: kernel/net/ipv6/netfilter/ip6_tables.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst:
+kernel/net/ipv6/netfilter/nf_socket_ipv6.ko.zst:
+kernel/net/ipv6/netfilter/nf_tproxy_ipv6.ko.zst:
+kernel/net/ipv6/netfilter/nf_reject_ipv6.ko.zst:
+kernel/net/ipv6/netfilter/nf_dup_ipv6.ko.zst:
+kernel/net/ipv6/netfilter/nft_reject_ipv6.ko.zst: kernel/net/ipv6/netfilter/nf_reject_ipv6.ko.zst kernel/net/netfilter/nft_reject.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv6/netfilter/nft_dup_ipv6.ko.zst: kernel/net/ipv6/netfilter/nf_dup_ipv6.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv6/netfilter/nft_fib_ipv6.ko.zst: kernel/net/netfilter/nft_fib.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv6/netfilter/ip6t_ah.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_eui64.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_frag.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_ipv6header.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_mh.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_hbh.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_rpfilter.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_rt.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_srh.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_NPT.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_REJECT.ko.zst: kernel/net/ipv6/netfilter/nf_reject_ipv6.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/ipv6/netfilter/ip6t_SYNPROXY.ko.zst: kernel/net/netfilter/nf_synproxy_core.ko.zst kernel/net/netfilter/x_tables.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/ipv6/ah6.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv6/esp6.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv6/esp6_offload.ko.zst: kernel/net/ipv6/esp6.ko.zst kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv6/ipcomp6.ko.zst: kernel/net/ipv6/xfrm6_tunnel.ko.zst kernel/net/xfrm/xfrm_ipcomp.ko.zst kernel/net/ipv6/tunnel6.ko.zst kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/ipv6/xfrm6_tunnel.ko.zst: kernel/net/ipv6/tunnel6.ko.zst
+kernel/net/ipv6/tunnel6.ko.zst:
+kernel/net/ipv6/mip6.ko.zst:
+kernel/net/ipv6/ila/ila.ko.zst:
+kernel/net/ipv6/ip6_vti.ko.zst: kernel/net/ipv6/xfrm6_tunnel.ko.zst kernel/net/ipv6/ip6_tunnel.ko.zst kernel/net/ipv6/tunnel6.ko.zst
+kernel/net/ipv6/sit.ko.zst: kernel/net/ipv4/tunnel4.ko.zst kernel/net/ipv4/ip_tunnel.ko.zst
+kernel/net/ipv6/ip6_tunnel.ko.zst: kernel/net/ipv6/tunnel6.ko.zst
+kernel/net/ipv6/ip6_gre.ko.zst: kernel/net/ipv4/gre.ko.zst kernel/net/ipv6/ip6_tunnel.ko.zst kernel/net/ipv6/tunnel6.ko.zst
+kernel/net/ipv6/fou6.ko.zst: kernel/net/ipv4/fou.ko.zst kernel/net/ipv4/ip_tunnel.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst kernel/net/ipv6/ip6_tunnel.ko.zst kernel/net/ipv6/tunnel6.ko.zst
+kernel/net/ipv6/ip6_udp_tunnel.ko.zst:
+kernel/net/packet/af_packet_diag.ko.zst:
+kernel/net/8021q/8021q.ko.zst: kernel/net/802/garp.ko.zst kernel/net/802/mrp.ko.zst kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst
+kernel/net/llc/llc.ko.zst:
+kernel/net/llc/llc2.ko.zst: kernel/net/llc/llc.ko.zst
+kernel/net/tls/tls.ko.zst:
+kernel/net/key/af_key.ko.zst: kernel/net/xfrm/xfrm_algo.ko.zst
+kernel/net/bridge/netfilter/nft_meta_bridge.ko.zst: kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/bridge/bridge.ko.zst kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/bridge/netfilter/nft_reject_bridge.ko.zst: kernel/net/ipv4/netfilter/nf_reject_ipv4.ko.zst kernel/net/ipv6/netfilter/nf_reject_ipv6.ko.zst kernel/net/netfilter/nft_reject.ko.zst kernel/net/netfilter/nf_tables.ko.zst kernel/net/netfilter/nfnetlink.ko.zst kernel/net/bridge/bridge.ko.zst kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/bridge/netfilter/nf_conntrack_bridge.ko.zst: kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/net/bridge/bridge.ko.zst kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/bridge/netfilter/ebtables.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebtable_broute.ko.zst: kernel/net/bridge/netfilter/ebtables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebtable_filter.ko.zst: kernel/net/bridge/netfilter/ebtables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebtable_nat.ko.zst: kernel/net/bridge/netfilter/ebtables.ko.zst kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_802_3.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_among.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_arp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_ip.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_ip6.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_limit.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_mark_m.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_pkttype.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_stp.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_vlan.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_arpreply.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_mark.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_dnat.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_redirect.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_snat.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_log.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/netfilter/ebt_nflog.ko.zst: kernel/net/netfilter/x_tables.ko.zst
+kernel/net/bridge/bridge.ko.zst: kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst
+kernel/net/bridge/br_netfilter.ko.zst: kernel/net/bridge/bridge.ko.zst kernel/net/802/stp.ko.zst kernel/net/llc/llc.ko.zst
+kernel/net/appletalk/appletalk.ko.zst: kernel/net/802/psnap.ko.zst kernel/net/llc/llc.ko.zst
+kernel/net/x25/x25.ko.zst:
+kernel/net/lapb/lapb.ko.zst:
+kernel/net/netrom/netrom.ko.zst: kernel/net/ax25/ax25.ko.zst
+kernel/net/rose/rose.ko.zst: kernel/net/ax25/ax25.ko.zst
+kernel/net/ax25/ax25.ko.zst:
+kernel/net/can/can.ko.zst:
+kernel/net/can/can-raw.ko.zst: kernel/net/can/can.ko.zst
+kernel/net/can/can-bcm.ko.zst: kernel/net/can/can.ko.zst
+kernel/net/can/can-gw.ko.zst: kernel/net/can/can.ko.zst
+kernel/net/can/j1939/can-j1939.ko.zst: kernel/net/can/can.ko.zst
+kernel/net/can/can-isotp.ko.zst: kernel/net/can/can.ko.zst
+kernel/net/sunrpc/sunrpc.ko.zst:
+kernel/net/sunrpc/auth_gss/auth_rpcgss.ko.zst: kernel/net/sunrpc/sunrpc.ko.zst
+kernel/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko.zst: kernel/net/sunrpc/auth_gss/auth_rpcgss.ko.zst kernel/net/sunrpc/sunrpc.ko.zst
+kernel/net/rxrpc/rxrpc.ko.zst: kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst
+kernel/net/rxrpc/rxperf.ko.zst: kernel/net/rxrpc/rxrpc.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst
+kernel/net/atm/atm.ko.zst:
+kernel/net/atm/clip.ko.zst: kernel/net/atm/atm.ko.zst
+kernel/net/atm/br2684.ko.zst: kernel/net/atm/atm.ko.zst
+kernel/net/atm/lec.ko.zst: kernel/net/atm/atm.ko.zst
+kernel/net/atm/mpoa.ko.zst: kernel/net/atm/atm.ko.zst
+kernel/net/atm/pppoatm.ko.zst: kernel/net/atm/atm.ko.zst
+kernel/net/phonet/phonet.ko.zst:
+kernel/net/phonet/pn_pep.ko.zst: kernel/net/phonet/phonet.ko.zst
+kernel/net/dccp/dccp.ko.zst:
+kernel/net/dccp/dccp_ipv4.ko.zst: kernel/net/dccp/dccp.ko.zst
+kernel/net/dccp/dccp_ipv6.ko.zst: kernel/net/dccp/dccp_ipv4.ko.zst kernel/net/dccp/dccp.ko.zst
+kernel/net/dccp/dccp_diag.ko.zst: kernel/net/dccp/dccp.ko.zst kernel/net/ipv4/inet_diag.ko.zst
+kernel/net/sctp/sctp.ko.zst: kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/sctp/sctp_diag.ko.zst: kernel/net/sctp/sctp.ko.zst kernel/net/ipv4/inet_diag.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/tipc/tipc.ko.zst: kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst
+kernel/net/tipc/diag.ko.zst: kernel/net/tipc/tipc.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst
+kernel/net/9p/9pnet.ko.zst:
+kernel/net/9p/9pnet_fd.ko.zst: kernel/net/9p/9pnet.ko.zst
+kernel/net/9p/9pnet_xen.ko.zst: kernel/net/9p/9pnet.ko.zst
+kernel/net/9p/9pnet_virtio.ko.zst: kernel/net/9p/9pnet.ko.zst
+kernel/net/9p/9pnet_rdma.ko.zst: kernel/drivers/infiniband/core/rdma_cm.ko.zst kernel/drivers/infiniband/core/iw_cm.ko.zst kernel/drivers/infiniband/core/ib_cm.ko.zst kernel/drivers/infiniband/core/ib_core.ko.zst kernel/net/9p/9pnet.ko.zst
+kernel/net/6lowpan/6lowpan.ko.zst:
+kernel/net/6lowpan/nhc_dest.ko.zst: kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/6lowpan/nhc_fragment.ko.zst: kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/6lowpan/nhc_hop.ko.zst: kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/6lowpan/nhc_ipv6.ko.zst: kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/6lowpan/nhc_mobility.ko.zst: kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/6lowpan/nhc_routing.ko.zst: kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/6lowpan/nhc_udp.ko.zst: kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/ieee802154/6lowpan/ieee802154_6lowpan.ko.zst: kernel/net/ieee802154/ieee802154.ko.zst kernel/net/6lowpan/6lowpan.ko.zst
+kernel/net/ieee802154/ieee802154.ko.zst:
+kernel/net/ieee802154/ieee802154_socket.ko.zst: kernel/net/ieee802154/ieee802154.ko.zst
+kernel/net/ceph/libceph.ko.zst: kernel/lib/libcrc32c.ko.zst
+kernel/net/psample/psample.ko.zst:
+kernel/net/openvswitch/openvswitch.ko.zst: kernel/net/nsh/nsh.ko.zst kernel/net/netfilter/nf_conncount.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/openvswitch/vport-vxlan.ko.zst: kernel/net/openvswitch/openvswitch.ko.zst kernel/net/nsh/nsh.ko.zst kernel/net/netfilter/nf_conncount.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/drivers/net/vxlan/vxlan.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/openvswitch/vport-geneve.ko.zst: kernel/drivers/net/geneve.ko.zst kernel/net/openvswitch/openvswitch.ko.zst kernel/net/nsh/nsh.ko.zst kernel/net/netfilter/nf_conncount.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/net/ipv6/ip6_udp_tunnel.ko.zst kernel/net/ipv4/udp_tunnel.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/openvswitch/vport-gre.ko.zst: kernel/net/ipv4/ip_gre.ko.zst kernel/net/openvswitch/openvswitch.ko.zst kernel/net/nsh/nsh.ko.zst kernel/net/ipv4/ip_tunnel.ko.zst kernel/net/netfilter/nf_conncount.ko.zst kernel/net/netfilter/nf_nat.ko.zst kernel/net/netfilter/nf_conntrack.ko.zst kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko.zst kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko.zst kernel/net/ipv4/gre.ko.zst kernel/lib/libcrc32c.ko.zst
+kernel/net/vmw_vsock/vsock.ko.zst:
+kernel/net/vmw_vsock/vsock_diag.ko.zst: kernel/net/vmw_vsock/vsock.ko.zst
+kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko.zst: kernel/net/vmw_vsock/vsock.ko.zst kernel/drivers/misc/vmw_vmci/vmw_vmci.ko.zst
+kernel/net/vmw_vsock/vmw_vsock_virtio_transport.ko.zst: kernel/net/vmw_vsock/vmw_vsock_virtio_transport_common.ko.zst kernel/net/vmw_vsock/vsock.ko.zst
+kernel/net/vmw_vsock/vmw_vsock_virtio_transport_common.ko.zst: kernel/net/vmw_vsock/vsock.ko.zst
+kernel/net/vmw_vsock/hv_sock.ko.zst: kernel/net/vmw_vsock/vsock.ko.zst kernel/drivers/hv/hv_vmbus.ko.zst
+kernel/net/vmw_vsock/vsock_loopback.ko.zst: kernel/net/vmw_vsock/vmw_vsock_virtio_transport_common.ko.zst kernel/net/vmw_vsock/vsock.ko.zst
+kernel/net/nsh/nsh.ko.zst:
+kernel/virt/lib/irqbypass.ko.zst:
+kernel/ubuntu/ubuntu-host/ubuntu-host.ko.zst:
+kernel/zfs/spl.ko.zst:
+kernel/v4l2loopback/v4l2loopback.ko.zst:
+kernel/zfs/zfs.ko.zst: kernel/zfs/spl.ko.zst

@@ -1,0 +1,14 @@
+[Unit]
+Description=casper-md5check Verify Live ISO checksums
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/casper/casper-md5check /cdrom /cdrom/md5sum.txt
+Nice=19
+RemainAfterExit=yes
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+
+[Install]
+WantedBy=multi-user.target

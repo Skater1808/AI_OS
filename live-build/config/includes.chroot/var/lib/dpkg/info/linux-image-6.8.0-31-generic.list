@@ -1,0 +1,9 @@
+/.
+/boot
+/boot/vmlinuz-6.8.0-31-generic
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/linux-image-6.8.0-31-generic
+/usr/share/doc/linux-image-6.8.0-31-generic/changelog.Debian.gz
+/usr/share/doc/linux-image-6.8.0-31-generic/copyright

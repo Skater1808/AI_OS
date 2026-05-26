@@ -1,0 +1,4 @@
+libply-boot-client 5 libplymouth5 (>= 24.004.60)
+libply-splash-core 5 libplymouth5 (>= 24.004.60)
+libply-splash-graphics 5 libplymouth5 (>= 24.004.60)
+libply 5 libplymouth5 (>= 24.004.60)

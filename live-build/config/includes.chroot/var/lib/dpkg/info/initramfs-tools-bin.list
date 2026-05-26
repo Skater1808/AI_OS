@@ -1,0 +1,12 @@
+/.
+/usr
+/usr/lib
+/usr/lib/initramfs-tools
+/usr/lib/initramfs-tools/bin
+/usr/lib/initramfs-tools/bin/gcc_s1-stub
+/usr/lib/initramfs-tools/bin/wait-for-root
+/usr/share
+/usr/share/doc
+/usr/share/doc/initramfs-tools-bin
+/usr/share/doc/initramfs-tools-bin/changelog.gz
+/usr/share/doc/initramfs-tools-bin/copyright

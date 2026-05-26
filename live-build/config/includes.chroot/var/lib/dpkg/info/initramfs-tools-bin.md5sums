@@ -1,0 +1,4 @@
+cca7f2af8d977fa26cf8fb7989fe4312  usr/lib/initramfs-tools/bin/gcc_s1-stub
+f67a93a9ef203a4408c4d298491e15bb  usr/lib/initramfs-tools/bin/wait-for-root
+47afa2248aa362ead55f9a853a014280  usr/share/doc/initramfs-tools-bin/changelog.gz
+4fc01ee21c39633ec3547d25c2fd3a75  usr/share/doc/initramfs-tools-bin/copyright
