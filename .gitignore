@@ -1,0 +1,51 @@
+# Build artifacts
+build/
+*.iso
+*.img
+live-build/
+
+# Rust/Cargo
+core-daemon/target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# Temporary files
+/tmp/
+*.swp
+*.swo
+*~
+.DS_Store
+.vscode/
+
+# Logs
+wget-log*
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS-specific
+.Thumbs.db
+.directory
+
+# Python cache (if used)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environment
+.env
+.env.local
+*.env
+
+# Node modules (if used)
+node_modules/
+
+# Virtual environments
+venv/
+env/
+ENV/

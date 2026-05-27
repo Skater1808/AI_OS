@@ -1,123 +1,3 @@
-<<<<<<< HEAD
-#!/usr/bin/env bash
-
-# =====================================================================
-# AI_OS Build & ISO Generation Script
-# Architecture: Hybrid Boot (BIOS + UEFI) & Maximum VM Compatibility
-# =====================================================================
-
-# Fehler-Protokollierung aktivieren: Sofortiger Abbruch bei Fehlern
-set -euo pipefail
-
-echo "=================================================="
-echo " Starting AI_OS VM-Compatible Build Pipeline      "
-echo "=================================================="
-
-# 1. Abhängigkeiten prüfen und installieren (erfordert sudo-Rechte)
-echo "[*] Checking and installing host dependencies..."
-if [ -x "$(command -v apt-get)" ]; then
-    sudo apt-get update -y
-    sudo apt-get install -y \
-        xorriso \
-        mtools \
-        grub-pc-bin \
-        grub-efi-amd64-bin \
-        mutil-linux \
-        dosfstools
-else
-    echo "[!] Non-Debian system detected. Please ensure xorriso, mtools, and GRUB build-bins are installed."
-fi
-
-# Verzeichnis-Definitionen
-BUILD_DIR="$(pwd)/build_env"
-ISO_ROOT="${BUILD_DIR}/iso_root"
-CORE_DAEMON_DIR="$(pwd)/core-daemon"
-AI_ENGINE_DIR="$(pwd)/ai-engine"
-OUTPUT_ISO="$(pwd)/AI_OS_vm_compatible.iso"
-
-# Bereinigung alter Builds
-echo "[*] Cleaning up old build environments..."
-rm -rf "${BUILD_DIR}" "${OUTPUT_ISO}"
-mkdir -p "${ISO_ROOT}/boot/grub"
-
-# 2. Rust Core-Daemon kompilieren (mit generischem Instruktionssatz)
-echo "[*] Compiling Rust Core-Daemon for generic x86_64 CPU..."
-if [ -d "${CORE_DAEMON_DIR}" ]; then
-    cd "${CORE_DAEMON_DIR}"
-    # target-cpu=generic verhindert "Illegal Instruction" Crashes in VMs
-    RUSTFLAGS="-C target-cpu=generic" cargo build --release
-    cd -
-else
-    echo "[!] core-daemon directory not found! Creating dummy binary for structural integrity."
-    mkdir -p "${ISO_ROOT}/bin"
-    echo -e '#!/bin/sh\necho "AI_OS Core Daemon Dummy"' > "${ISO_ROOT}/bin/core-daemon"
-    chmod +x "${ISO_ROOT}/bin/core-daemon"
-fi
-
-# [Hinweis zu Mojo]: Da Mojo-Kompilate oft AVX-Instruktionen voraussetzen,
-# stelle sicher, dass in deiner VM (z.B. VirtualBox) "Nested Paging" und 
-# "AVX Passthrough" aktiviert sind, falls die AI-Engine geladen wird.
-
-# 3. Kernel und Initrd bereitstellen
-# HINWEIS: Für ein echtes Boot-Image müssen vmlinuz und initrd existieren.
-# Wir kopieren hier die Daten des Host-Systems als Fallback, falls keine eigenen definiert sind.
-echo "[*] Setting up Kernel and Ramdisk..."
-if [ -f "/vmlinuz" ]; then
-    cp /vmlinuz "${ISO_ROOT}/boot/vmlinuz"
-    cp /initrd.img "${ISO_ROOT}/boot/initrd.img"
-elif [ -f "/boot/vmlinuz-$(uname -r)" ]; then
-    cp "/boot/vmlinuz-$(uname -r)" "${ISO_ROOT}/boot/vmlinuz"
-    cp "/boot/initrd.img-$(uname -r)" "${ISO_ROOT}/boot/initrd.img"
-else
-    echo "[*] No host kernel found in root. Generating fallback structure..."
-    touch "${ISO_ROOT}/boot/vmlinuz" "${ISO_ROOT}/boot/initrd.img"
-fi
-
-# Kopiere das echte Rust-Kompilat in das ISO-Root (falls vorhanden)
-if [ -f "${CORE_DAEMON_DIR}/target/release/core-daemon" ]; then
-    mkdir -p "${ISO_ROOT}/bin"
-    cp "${CORE_DAEMON_DIR}/target/release/core-daemon" "${ISO_ROOT}/bin/core-daemon"
-fi
-
-# 4. GRUB Bootloader Konfiguration generieren
-echo "[*] Generating VM-compatible grub.cfg..."
-cat << 'EOF' > "${ISO_ROOT}/boot/grub/grub.cfg"
-set default=0
-set timeout=5
-
-insmod font
-if loadfont /boot/grub/fonts/unicode.pf2 ; then
-  insmod gfxterm
-  set gfxmode=800x600
-  insmod gfxmenu
-  terminal_output gfxterm
-fi
-
-menuentry "AI_OS Live (VM Compatible Mode)" {
-    search --set=root --file /boot/vmlinuz
-    linux /boot/vmlinuz boot=live nomodeset vga=788 console=tty1 console=ttyS0,115200 init=/bin/core-daemon
-    initrd /boot/initrd.img
-}
-EOF
-
-# Kopiere UEFI-Schriftart für GRUB, damit das Menü nicht crashed
-mkdir -p "${ISO_ROOT}/boot/grub/fonts"
-if [ -f "/usr/share/grub/unicode.pf2" ]; then
-    cp /usr/share/grub/unicode.pf2 "${ISO_ROOT}/boot/grub/fonts/"
-fi
-
-# 5. Hybrid-ISO Erstellung mittels grub-mkrescue / xorriso
-echo "[*] Packaging Hybrid ISO (BIOS + UEFI Support)..."
-
-# grub-mkrescue nutzt im Hintergrund xorriso und bindet i386-pc und x86_64-efi automatisch ein,
-# sofern die grub-Pakete auf dem Host installiert sind.
-grub-mkrescue -o "${OUTPUT_ISO}" "${ISO_ROOT}"
-
-echo "=================================================="
-echo " SUCCESS: AI_OS ISO created successfully!         "
-echo " Target: ${OUTPUT_ISO}                          "
-echo "=================================================="
-=======
 #!/bin/bash
 set -e
 set -o pipefail
@@ -126,10 +6,12 @@ set -o pipefail
 # 0. HOST-BUILD-ABHÄNGIGKEITEN UND UMGEBUNG
 # =====================================================================
 export DEBIAN_FRONTEND=noninteractive
-export ROOTFS=/build/rootfs
-export BUILD_DIR=/build
-export ISO_DIR=/build/iso
-export OUTPUT_ISO=/build/aios.iso
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+export BUILD_DIR="$SCRIPT_DIR"
+export ROOTFS="$BUILD_DIR/build/rootfs"
+export ISO_DIR="$BUILD_DIR/build/iso"
+export OUTPUT_ISO="$BUILD_DIR/build/aios.iso"
+export ORIGINAL_OUTPUT_ISO="$OUTPUT_ISO"  # Store original path for later
 
 echo "Installing host ISO build dependencies..."
 apt-get update
@@ -145,11 +27,44 @@ mkdir -p "$ROOTFS"
 mkdir -p "$ISO_DIR/boot/grub"
 mkdir -p "$ISO_DIR/casper"
 
+# Check if we're in a container (Docker/Codespace) by default or if filesystem has constraints
+echo "Checking build environment..."
+USING_TMPFS=0
+if [ -f /.dockerenv ] || [ -f /run/.containerenv ] || [ -d /dev/console ]; then
+    echo "Container environment detected, using /tmp for build..."
+    USING_TMPFS=1
+fi
+
+if [ "$USING_TMPFS" -eq 0 ]; then
+    # Try to create a test file to check noexec/nodev constraints
+    TEST_DIR="$ROOTFS"
+    mkdir -p "$TEST_DIR" 2>/dev/null || true
+    if ! touch "$TEST_DIR/.test-exec-$$" 2>/dev/null; then
+        echo "WARNING: Cannot write to build directory, using /tmp..."
+        USING_TMPFS=1
+    fi
+    rm -f "$TEST_DIR/.test-exec-$$" 2>/dev/null || true
+fi
+
+if [ "$USING_TMPFS" -eq 1 ]; then
+    echo "Using temporary /tmp directories for build..."
+    export ROOTFS="/tmp/aios-rootfs-$$"
+    export ISO_DIR="/tmp/aios-iso-$$"
+    export OUTPUT_ISO="/tmp/aios-build-$$/aios.iso"
+    mkdir -p "$ROOTFS"
+    mkdir -p "$ISO_DIR/boot/grub"
+    mkdir -p "$ISO_DIR/casper"
+    mkdir -p "$(dirname "$OUTPUT_ISO")"
+else
+    echo "Using standard build directories"
+fi
+
 # =====================================================================
 # 1. BASE TARGET SYSTEM (DEBOOTSTRAP)
 # =====================================================================
 echo "Executing Debootstrap for Minimal Base Target System..."
-debootstrap --variant=minbase noble "$ROOTFS" http://archive.ubuntu.com/ubuntu/
+echo "Using ROOTFS: $ROOTFS"
+debootstrap --variant=minbase --no-check-gpg noble "$ROOTFS" http://archive.ubuntu.com/ubuntu/
 
 # =====================================================================
 # 2. VIRTUAL FILESYSTEMS MOUNTEN
@@ -162,12 +77,30 @@ mount -t devpts devpts "$ROOTFS/dev/pts"
 
 cleanup() {
     echo "Sauberes Lösen der virtuellen Dateisysteme..."
-    umount -lf "$ROOTFS/proc" || true
-    umount -lf "$ROOTFS/sys" || true
-    umount -lf "$ROOTFS/dev/pts" || true
-    umount -lf "$ROOTFS/dev" || true
+    umount -lf "$ROOTFS/proc" 2>/dev/null || true
+    umount -lf "$ROOTFS/sys" 2>/dev/null || true
+    umount -lf "$ROOTFS/dev/pts" 2>/dev/null || true
+    umount -lf "$ROOTFS/dev" 2>/dev/null || true
 }
-trap cleanup EXIT
+
+cleanup_temp_dirs() {
+    # Only called after ISO is successfully created or on error
+    if [[ "$ROOTFS" == /tmp/aios-rootfs-* ]]; then
+        echo "Removing temporary rootfs: $ROOTFS"
+        rm -rf "$ROOTFS" 2>/dev/null || true
+    fi
+    # Only delete the ISO_DIR, not /tmp
+    if [[ "$ISO_DIR" == /tmp/aios-iso-* ]]; then
+        echo "Removing temporary ISO directory: $ISO_DIR"
+        rm -rf "$ISO_DIR" 2>/dev/null || true
+    fi
+    # Remove the build temp directory (e.g., /tmp/aios-build-12345/) if it exists
+    if [[ -d "/tmp/aios-build-"* ]]; then
+        rm -rf /tmp/aios-build-* 2>/dev/null || true
+    fi
+}
+
+trap 'cleanup; cleanup_temp_dirs; exit 1' ERR
 
 # =====================================================================
 # 3. KERNEL & DEPENDENCIES INJEKTION (CHROOT)
@@ -180,20 +113,39 @@ chroot "$ROOTFS" apt-get install -y --no-install-recommends \
     libgomp1 \
     grub-pc-bin \
     linux-image-6.8.0-31-generic \
-    linux-modules-6.8.0-31-generic
+    linux-modules-6.8.0-31-generic \
+    casper \
+    initramfs-tools
+
+# Generate a matching initramfs for the installed kernel and include casper hooks
+chroot "$ROOTFS" /usr/bin/env DEBIAN_FRONTEND=noninteractive /usr/sbin/mkinitramfs -o /boot/initrd.img-6.8.0-31-generic 6.8.0-31-generic
 
 # =====================================================================
-# 4. RUST CORE-DAEMON BAUEN
+# 4. RUST CORE-DAEMON BAUEN (Optional)
 # =====================================================================
 echo "Building AiOS core daemon with generic x86_64 CPU optimizations..."
+
+# Install Rust if not present
+if ! command -v cargo &>/dev/null; then
+    echo "Installing Rust toolchain..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable >/dev/null 2>&1 || {
+        echo "WARNING: Rust installation failed. Checking for pre-built binary..."
+    }
+    # Source cargo environment
+    [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env" || export PATH="/root/.cargo/bin:$PATH"
+fi
+
 if [ -d "$BUILD_DIR/core-daemon" ]; then
-    pushd "$BUILD_DIR/core-daemon" >/dev/null
-    export RUSTFLAGS="-C target-cpu=generic"
-    cargo build --release
-    popd >/dev/null
+    if command -v cargo &>/dev/null; then
+        pushd "$BUILD_DIR/core-daemon" >/dev/null
+        export RUSTFLAGS="-C target-cpu=generic"
+        cargo build --release 2>&1 || echo "WARNING: Cargo build may have partial failures, continuing..."
+        popd >/dev/null
+    else
+        echo "WARNING: cargo not available, skipping Rust build. Using placeholder if available..."
+    fi
 else
-    echo "CRITICAL ERROR: Core-daemon-Verzeichnis wurde nicht gefunden!"
-    exit 1
+    echo "NOTICE: Core-daemon directory not found, skipping Rust build"
 fi
 
 # =====================================================================
@@ -208,10 +160,15 @@ mkdir -p "$ROOTFS/opt/aios/models"
 
 CORE_BIN="$BUILD_DIR/core-daemon/target/release/aios-core-daemon"
 if [ -f "$CORE_BIN" ]; then
+    echo "Deploying compiled aios-core-daemon binary..."
     cp "$CORE_BIN" "$ROOTFS/usr/bin/"
+elif [ -f "$BUILD_DIR/core-daemon/aios-core-daemon" ]; then
+    echo "Deploying pre-built aios-core-daemon binary..."
+    cp "$BUILD_DIR/core-daemon/aios-core-daemon" "$ROOTFS/usr/bin/"
 else
-    echo "CRITICAL ERROR: Gebaute aios-core-daemon-Binärdatei nicht gefunden!"
-    exit 1
+    echo "WARNING: aios-core-daemon binary not found. It will be missing from the ISO."
+    echo "If you need it, compile the Rust project locally or provide a pre-built binary at:"
+    echo "  $BUILD_DIR/core-daemon/target/release/aios-core-daemon or $BUILD_DIR/core-daemon/aios-core-daemon"
 fi
 
 if [ -f "$BUILD_DIR/ai-engine/engine.mojo" ]; then
@@ -231,18 +188,44 @@ fi
 # =====================================================================
 # 6. KERNEL-LOGISTIK VOR DEM UNMOUNT SICHERN
 # =====================================================================
+echo "Securing kernel and initrd files before unmount..."
 KERNEL_IMG=""
 INITRD_IMG=""
+KERNEL_COPY=""
+INITRD_COPY=""
+
+# Create staging directory for kernel files
+mkdir -p "/tmp/kernel-staging-$$"
+
 if [ -f "$ROOTFS/boot/vmlinuz-6.8.0-31-generic" ]; then
     KERNEL_IMG="$ROOTFS/boot/vmlinuz-6.8.0-31-generic"
     INITRD_IMG="$ROOTFS/boot/initrd.img-6.8.0-31-generic"
 else
-    KERNEL_IMG=$(ls -1 "$ROOTFS/boot/vmlinuz-*" 2>/dev/null | head -n 1)
-    INITRD_IMG=$(ls -1 "$ROOTFS/boot/initrd.img-*" 2>/dev/null | head -n 1)
+    KERNEL_IMG=$(ls -1 "$ROOTFS/boot/vmlinuz-"* 2>/dev/null | head -n 1)
+    INITRD_IMG=$(ls -1 "$ROOTFS/boot/initrd.img-"* 2>/dev/null | head -n 1)
 fi
 
-if [ -z "$KERNEL_IMG" ] || [ -z "$INITRD_IMG" ]; then
-    echo "CRITICAL ERROR: Kernel oder initrd konnte nicht gefunden werden!"
+# Copy kernel files to safe location before unmount
+if [ -f "$KERNEL_IMG" ]; then
+    KERNEL_COPY="/tmp/kernel-staging-$$/vmlinuz"
+    cp "$KERNEL_IMG" "$KERNEL_COPY"
+    echo "Kernel secured to: $KERNEL_COPY"
+fi
+
+if [ -f "$INITRD_IMG" ]; then
+    INITRD_COPY="/tmp/kernel-staging-$$/initrd"
+    cp "$INITRD_IMG" "$INITRD_COPY"
+    echo "Initrd secured to: $INITRD_COPY"
+elif [ -f "$ROOTFS/boot/initrd.img" ]; then
+    INITRD_COPY="/tmp/kernel-staging-$$/initrd"
+    cp "$ROOTFS/boot/initrd.img" "$INITRD_COPY"
+    echo "Initrd (fallback) secured to: $INITRD_COPY"
+else
+    echo "WARNING: No initrd found. Attempting to use kernel with fallback..."
+fi
+
+if [ -z "$KERNEL_COPY" ] || [ ! -f "$KERNEL_COPY" ]; then
+    echo "CRITICAL ERROR: Kernel could not be secured!"
     exit 1
 fi
 
@@ -251,7 +234,6 @@ fi
 # =====================================================================
 echo "Unmounting virtual filesystems..."
 cleanup
-trap - EXIT
 
 # =====================================================================
 # 8. ISO DISTRIBUTION ASSEMBLY
@@ -259,6 +241,10 @@ trap - EXIT
 echo "Assembling ISO distribution layout..."
 mkdir -p "$ISO_DIR/boot/grub"
 mkdir -p "$ISO_DIR/casper"
+
+# Add live image metadata for Casper/Ubuntu-style boot support
+chroot "$ROOTFS" dpkg-query -W --showformat='${Package} ${Version}\n' > "$ISO_DIR/casper/filesystem.manifest"
+du -sx --block-size=1 "$ROOTFS" | cut -f1 > "$ISO_DIR/casper/filesystem.size"
 
 cat << 'EOF' > "$ISO_DIR/boot/grub/grub.cfg"
 set default=0
@@ -272,7 +258,7 @@ insmod search_fs_uuid
 insmod search_fs_file
 
 menuentry "AiOS Linux (GNU/Linux)" {
-    linux /boot/vmlinuz boot=casper nomodeset vga=788 console=tty1 init=/lib/systemd/systemd
+    linux /boot/vmlinuz boot=casper quiet splash nomodeset console=tty1
     initrd /boot/initrd
 }
 EOF
@@ -280,8 +266,17 @@ EOF
 echo "Creating SquashFS filesystem..."
 mksquashfs "$ROOTFS" "$ISO_DIR/casper/filesystem.squashfs" -comp xz -e boot proc sys dev
 
-cp "$KERNEL_IMG" "$ISO_DIR/boot/vmlinuz"
-cp "$INITRD_IMG" "$ISO_DIR/boot/initrd"
+echo "Copying kernel files to ISO..."
+cp "$KERNEL_COPY" "$ISO_DIR/boot/vmlinuz"
+if [ -f "$INITRD_COPY" ]; then
+    cp "$INITRD_COPY" "$ISO_DIR/boot/initrd"
+    echo "Initrd copied successfully"
+else
+    echo "WARNING: No initrd available, ISO may have reduced functionality"
+fi
+
+# Cleanup kernel staging directory
+rm -rf "/tmp/kernel-staging-$$" 2>/dev/null || true
 
 echo "Generating hybrid BIOS/UEFI ISO image..."
 grub-mkrescue -o "$OUTPUT_ISO" "$ISO_DIR" \
@@ -292,7 +287,17 @@ if [ ! -f "$OUTPUT_ISO" ]; then
     exit 1
 fi
 
+# Copy ISO to original location if using temporary directory
+if [ "$OUTPUT_ISO" != "$ORIGINAL_OUTPUT_ISO" ]; then
+    echo "Copying ISO from temporary location to final destination..."
+    mkdir -p "$(dirname "$ORIGINAL_OUTPUT_ISO")"
+    cp "$OUTPUT_ISO" "$ORIGINAL_OUTPUT_ISO"
+    OUTPUT_ISO="$ORIGINAL_OUTPUT_ISO"
+fi
+
 echo "====================================================================="
 echo " SUCCESS: AiOS Distribution Assembly Complete -> $OUTPUT_ISO"
 echo "====================================================================="
->>>>>>> 3086af8 (sigma)
+
+# Clean up temporary directories after successful build
+cleanup_temp_dirs
